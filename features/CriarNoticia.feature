@@ -36,5 +36,5 @@ Feature: Criar notícias
         Given eu estou logado como administrador e a notícia “Felipe Ret é preso” está cadastrada no sistema
         And estou na página de gerenciamento de notícias
         When eu preencho os campos para a criação da notícia com “título” “Felipe Ret é preso”
-        Then Eu vejo uma mensagem de erro
+        Then Eu vejo uma mensagem de erro.
         And A notícia com o mesmo título “Felipe Ret é preso” não é cadastrada no sistema
