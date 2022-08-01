@@ -51,11 +51,8 @@ Feature: Criar notícias
         And estou na página de gerenciamento de notícias
         When Eu edito a notícia "Felipe Ret é preso" não preenchendo algum campo obrigatório.
         Then Eu recebo uma mensagem de erro
-<<<<<<< HEAD
         Then resoluçao do relatorio
-=======
 
     Scenario: Fictício eh apenas um teste
 
-    Scenario: Fictício2
->>>>>>> dev
+    Scenario: Fictício2 Modificado
