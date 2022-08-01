@@ -53,3 +53,5 @@ Feature: Criar notícias
         Then Eu recebo uma mensagem de erro
 
     Scenario: Fictício eh apenas um teste
+
+    Scenario: Fictício2
