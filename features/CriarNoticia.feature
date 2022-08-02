@@ -25,3 +25,37 @@ Feature: Criar notícias
         And A notícia com título "Baiano é preso" não é cadastrada no sistema.
 
     Scenario: fictio aula 3
+<<<<<<< HEAD
+=======
+    Scenario: Editar uma notícia
+        Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
+        And estou na página de gerenciamento de notícias
+        When Eu edito a notícia "Felipe Ret é preso" mudando o título para "Baiano é preso".
+        Then Eu recebo uma mensagem de confirmação
+        And O sistema edita a notícia de título "Felipe Ret é preso" para "Baiano é preso"
+        And a data de edição é registrada.
+
+    Scenario: Remover uma notícia
+        Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
+        And estou na página de gerenciamento de notícias
+        When Eu removo a notícia "Felipe Ret é preso".
+        Then Eu recebo uma mensagem de confirmação
+        And O sistema remove a notícia de título "Felipe Ret é preso".
+
+    Scenario: Remoção mal sucedida uma notícia
+        Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
+        And estou na página de gerenciamento de notícias
+        When eu preencho os campos para a criação da notícia com "título" "Felipe Ret é preso"
+        Then Eu vejo uma mensagem de erro.
+        And A notícia com o mesmo título "Felipe Ret é preso" não é cadastrada no sistema.
+
+    Scenario: Edição mal sucedida de uma notícia
+        Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
+        And estou na página de gerenciamento de notícias
+        When Eu edito a notícia "Felipe Ret é preso" não preenchendo algum campo obrigatório.
+        Then Eu recebo uma mensagem de erro
+
+    Scenario: Ficticio commit1
+
+    Scenario: Fictício2
+>>>>>>> abb5548... modificação aula 3 2
