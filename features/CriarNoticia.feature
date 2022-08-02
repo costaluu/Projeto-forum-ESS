@@ -23,3 +23,5 @@ Feature: Criar notícias
         When eu preencho os dados da nóticia de título "Baiano é preso" com o identificador "x"
         Then Eu vejo uma mensagem de erro
         And A notícia com título "Baiano é preso" não é cadastrada no sistema.
+
+    Scenario: fictio aula 3
