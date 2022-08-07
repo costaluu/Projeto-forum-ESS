@@ -1,8 +1,28 @@
-<p-menubar [model]="items">
-    <ng-template pTemplate="start">
-        <img src="assets/showcase/images/primeng.svg" height="40" class="mr-2">
-    </ng-template>
-    <ng-template pTemplate="end">
-        <input type="text" pInputText placeholder="Search">
-    </ng-template>
-</p-menubar>
+<div class="card" style="min-height: 50px;">
+    <div class="flex bg-cyan-500 flex-wrap md:justify-content-between justify-content-center card-container" style="min-height: 50px;">
+        <div class="bg-orange-500 text-white font-bold border-round m-2 flex align-items-center justify-content-center" style="min-width: 100px; max-height: 50px;">Logo</div>
+        <div class="text-white m-2 flex align-items-center justify-content-center" style="min-width: 400px; max-height: 50px;">
+            <div class="card">
+                <div class="flex bg-cyan-500 flex-wrap md:justify-content-between justify-content-center card-container">
+                    <div class="text-white m-2 flex align-items-center justify-content-center" style="max-height: 50px;">
+                        <div class="hidden md:block">
+                            <span class="p-input-icon-right">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-sm" type="text" pInputText placeholder="Search..." />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="m-2 flex align-items-center justify-content-center" style="max-height: 50px;">
+                        <p-button styleClass="p-button-secondary p-button-text p-button-sm">
+                            <ng-template pTemplate="content">
+                                <p-avatar label="B" styleClass="mr-2" size="small"></p-avatar>
+                                <span style="text-align: left;">Baiano</span>
+                            </ng-template>
+                        </p-button>
+                        <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-secondary p-button-text p-button-sm"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

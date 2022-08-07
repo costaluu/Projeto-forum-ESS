@@ -7,6 +7,10 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RightBarComponent } from './components/right-bar/right-bar.component';
 import { MenubarModule } from 'primeng/menubar';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {AvatarModule} from 'primeng/avatar';
 
 @NgModule({
   declarations: [
@@ -17,9 +21,13 @@ import { MenubarModule } from 'primeng/menubar';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     ButtonModule,
-    MenubarModule
+    MenubarModule,
+    InputTextModule,
+    SplitButtonModule,
+    AvatarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
