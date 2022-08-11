@@ -1,4 +1,4 @@
-Feature: Criar notícias
+Feature: Remover notícia
     As usuario administrador
     I want to remover noticias
     So that eu posso gerenciar melhor o meu site

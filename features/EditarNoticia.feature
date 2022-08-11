@@ -1,4 +1,4 @@
-Feature: Criar notícias
+Feature: Editar notícia
     As usuario administrador
     I want to editar noticias
     So that eu posso gerenciar melhor o meu site
