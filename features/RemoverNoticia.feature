@@ -3,7 +3,7 @@ Feature: Remover notícia
     I want to remover noticias
     So that eu posso gerenciar melhor o meu site
 
-    Scenario: Remover uma notícia
+    Scenario: Remoção bem sucedida de uma notícia
         Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
         And estou na página de gerenciamento de notícias
         When Eu removo a notícia "Felipe Ret é preso".
