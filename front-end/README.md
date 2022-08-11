@@ -4,9 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## UI Framework
 
-This project uses, please read all documentation before start:
-
-[PrimeNG](https://www.primefaces.org/primeng)
+This project uses [PrimeNG](https://www.primefaces.org/primeng), please read all documentation before start
 
 ## Prettier
 
