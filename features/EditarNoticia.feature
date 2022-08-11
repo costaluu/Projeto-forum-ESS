@@ -3,7 +3,7 @@ Feature: Editar notícia
     I want to editar noticias
     So that eu posso gerenciar melhor o meu site
 
-    Scenario: Editar bem sucedida de uma notícia
+    Scenario: Edição bem sucedida de uma notícia
         Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
         And estou na página de gerenciamento de notícias
         When Eu edito a notícia "Felipe Ret é preso" mudando o título para "Baiano é preso".
