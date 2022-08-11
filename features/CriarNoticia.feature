@@ -25,8 +25,6 @@ Feature: Criar notícias
         And A notícia com título "Baiano é preso" não é cadastrada no sistema.
 
     Scenario: fictio aula 3
-<<<<<<< HEAD
-=======
     Scenario: Editar uma notícia
         Given eu estou logado como administrador e a notícia "Felipe Ret é preso" está cadastrada no sistema
         And estou na página de gerenciamento de notícias
@@ -54,8 +52,3 @@ Feature: Criar notícias
         And estou na página de gerenciamento de notícias
         When Eu edito a notícia "Felipe Ret é preso" não preenchendo algum campo obrigatório.
         Then Eu recebo uma mensagem de erro
-
-    Scenario: Ficticio commit1
-
-    Scenario: Fictício2
->>>>>>> abb5548... modificação aula 3 2

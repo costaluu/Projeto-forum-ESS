@@ -1,9 +1,31 @@
-<div class="grid">
-  <div class="col-12 md:col-12 lg:col-12" style="margin: 0; padding: 0;">
-    <app-header></app-header>
-  </div>
-  <div class="col-12 md:col-12 lg:col-12">
+<div class="grid-container">
+  <section class="header-logo-name flex justify-content-center align-items-center">
+    Logo + Name
+  </section>
+  <section class="header-search">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input type="text" class="p-inputtext-sm" pInputText placeholder="Search"/>
+    </span>
+  </section>
+  <section class="header-button">
+    <div *ngIf="logged; else elseBlock" class="flex justify-content-end align-items-center">
+      <p-button styleClass="p-button-sm py-1 border-1 border-solid text-base" (click)="menu.toggle($event)">
+        <ng-template pTemplate="content">
+          <p-avatar label="B" size="small" [style]="{'background-color':'#000000', 'color': '#ffffff', 'padding':'0px', 'margin':'0px'}"></p-avatar>
+          <span style="margin-left: 10px;">Baiano</span>
+        </ng-template>
+      </p-button>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    </div>
+    <ng-template #elseBlock >
+      <div class="flex justify-content-end align-items-center">
+        <p-button label="Sing In" icon="pi pi-sign-in" styleClass="p-button-sm"></p-button>
+      </div>
+    </ng-template>
+  </section>
+  <main>
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>
 

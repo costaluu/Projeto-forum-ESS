@@ -1,35 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ButtonModule } from 'primeng/button';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { HeaderComponent } from './components/header/header.component';
-import { RightBarComponent } from './components/right-bar/right-bar.component';
-import { MenubarModule } from 'primeng/menubar';
-import { FormsModule } from '@angular/forms';
+
+import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuModule } from 'primeng/menu';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {AvatarModule} from 'primeng/avatar';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { CardModule } from 'primeng/card';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HeaderComponent,
-    RightBarComponent
-  ],
+  declarations: [AppComponent, HomeComponent, LoginComponent],
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ButtonModule,
-    MenubarModule,
-    InputTextModule,
     SplitButtonModule,
-    AvatarModule
+    MenuModule,
+    CommonModule,
+    OverlayPanelModule,
+    AvatarModule,
+    InputTextModule,
+    CardModule,
+    PasswordModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

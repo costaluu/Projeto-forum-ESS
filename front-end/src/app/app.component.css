@@ -1,0 +1,41 @@
+.grid-container {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(100px, 1.5fr) minmax(150px, 2fr) minmax(150, 2fr);
+  grid-template-rows: minmax(50px, 0.4fr) minmax(500px, 5fr);
+  grid-template-areas:
+    "logo-name search button"
+    "main      main   main";
+  height: 100vh;
+  overflow:hidden;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+section.header-logo-name {
+  grid-area: logo-name;
+  background: orange;
+}
+
+section.header-search {
+  grid-area: search;
+  background: brown;
+}
+
+section.header-button {
+  grid-area: button;
+  background: purple;
+  justify-content: end;
+  padding-right: 10px;
+}
+
+main {
+  grid-area: main;
+}
+
+
