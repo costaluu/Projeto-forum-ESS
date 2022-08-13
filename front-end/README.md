@@ -2,13 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
 
-## UI Framework
+## UI FrameWork Used
 
-This project uses [PrimeNG](https://www.primefaces.org/primeng), please read all documentation before start
+This project uses [NG-ZORRO](https://ng.ant.design/docs/introduce/en) as FrameWork UI please read all docs before start.
 
-## Prettier
+## UI FrameWork Used
 
-Don't forget to install prettier in your VSCode.
+Install prettier on your project
 
 ## Development server
 
@@ -16,7 +16,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Code scaffolding
 
-Run `ng generate component components/component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 

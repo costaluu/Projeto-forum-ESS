@@ -1,37 +1,79 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { ButtonModule } from 'primeng/button';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { MenuModule } from 'primeng/menu';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { AvatarModule } from 'primeng/avatar';
-import { InputTextModule } from 'primeng/inputtext';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import {
+  UserOutline,
+  LogoutOutline,
+  LoginOutline,
+  TeamOutline,
+  HomeOutline,
+  ThunderboltOutline,
+  LockOutline,
+  DownOutline,
+  FileTextOutline,
+} from '@ant-design/icons-angular/icons';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { CardModule } from 'primeng/card';
-import { PasswordModule } from 'primeng/password';
+import { NewsManagementComponent } from './components/news-management/news-management.component';
+
+const icons: IconDefinition[] = [
+  UserOutline,
+  LogoutOutline,
+  LoginOutline,
+  TeamOutline,
+  HomeOutline,
+  ThunderboltOutline,
+  LockOutline,
+  DownOutline,
+  FileTextOutline,
+];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    NewsManagementComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NzIconModule.forRoot(icons),
     AppRoutingModule,
-    ButtonModule,
-    SplitButtonModule,
-    MenuModule,
-    CommonModule,
-    OverlayPanelModule,
-    AvatarModule,
-    InputTextModule,
-    CardModule,
-    PasswordModule,
+    NzButtonModule,
+    NzAvatarModule,
+    NzDropDownModule,
+    NzMenuModule,
+    NzSpaceModule,
+    NzCardModule,
+    NzFormModule,
+    NzInputModule,
+    NzStatisticModule,
+    NzGridModule,
+    NzDividerModule,
+    NzTableModule,
+    NzPopconfirmModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

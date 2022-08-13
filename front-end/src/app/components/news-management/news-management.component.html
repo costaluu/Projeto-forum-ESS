@@ -1,0 +1,30 @@
+<nz-card style="width:100%; min-height: 100%;" nzTitle="News Management">
+  <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Text</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of editRowTable.data">
+        <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
+          <td>{{ data.title }}</td>
+          <td nzEllipsis>{{ data.markdownText }}</td>
+          <td><a (click)="startEdit(data.id)">Edit</a></td>
+        </ng-container>
+        <ng-template #editTemplate>
+          <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.title"/></td>
+          <td nzEllipsis><input type="text" nz-input [(ngModel)]="editCache[data.id].data.markdownText"/></td>
+          <td>
+            <nz-space>
+              <a *nzSpaceItem (click)="saveEdit(data.id)" class="save">Save</a>
+              <a *nzSpaceItem nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data.id)" [nzCancelText]="'Cancel'" [nzOkText]="'Ok'">Cancel</a>
+            </nz-space>
+          </td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

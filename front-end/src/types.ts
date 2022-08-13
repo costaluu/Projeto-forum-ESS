@@ -1,6 +1,6 @@
 export enum UserType {
   normal = 1,
-  administrator = 2,
+  administrator,
 }
 
 export interface User {

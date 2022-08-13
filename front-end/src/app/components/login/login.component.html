@@ -1,22 +1,22 @@
-<div class="flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
-  <p-card header="Name" subheader="Welcome to your community" [style]="{width: '400px'}" styleClass="p-card-shadow">
-    <div class="grid">
-      <div class="col-12">
-        <span>Username</span>
-      </div>
-      <div class="col-12">
-        <span class="p-input-icon-left w-full">
-            <i class="pi pi-user"></i>
-            <input type="text" pInputText class="text-base text-color surface-overlay px-5 py-2 border-1 border-solid surface-border appearance-none outline-none focus:border-primary w-full"/>
-        </span>
-      </div>
-      <div class="col-12">Password</div>
-      <div class="col-12 w-full">
-        <p-password [styleClass]="'w-full'" [inputStyleClass]="'w-full py-2'" [feedback]="false"></p-password>
-      </div>
-    </div>
-      <ng-template pTemplate="footer">
-        <button type="button" class="text-white bg-primary-500 border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700 w-full">Sing In</button>
-      </ng-template>
-  </p-card>
+<div class="login-container">
+  <nz-card nzHoverable style="width: 400px">
+    <nz-card-meta nzTitle="Name" nzDescription="Welcome to your community!"></nz-card-meta>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()" style="margin-top: 1rem;">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="userName" placeholder="Username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" nzBlock>Log in</button>
+    </form>
+  </nz-card>
 </div>

@@ -2,10 +2,10 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: minmax(100px, 1.5fr) minmax(150px, 2fr) minmax(150, 2fr);
+  grid-template-columns: minmax(300px, 3fr) minmax(200px, 1.5fr) minmax(150px, 1fr);
   grid-template-rows: minmax(50px, 0.4fr) minmax(500px, 5fr);
   grid-template-areas:
-    "logo-name search button"
+    "logo-name menu button"
     "main      main   main";
   height: 100vh;
   overflow:hidden;
@@ -22,8 +22,8 @@ section.header-logo-name {
   background: orange;
 }
 
-section.header-search {
-  grid-area: search;
+section.header-menu {
+  grid-area: menu;
   background: brown;
 }
 
@@ -37,5 +37,3 @@ section.header-button {
 main {
   grid-area: main;
 }
-
-

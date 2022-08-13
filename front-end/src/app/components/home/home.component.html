@@ -1,1 +1,44 @@
-<p>home works!</p>
+<div class="home-grid-container">
+  <section class="main-content">
+    <router-outlet></router-outlet>
+  </section>
+  <section class="right-sidebar">
+    <div style="margin: 1em;">
+      <nz-row>
+        <nz-statistic [nzValue]="666" [nzTitle]="'News'" [nzPrefix]="prefixNewsStats"></nz-statistic>
+        <ng-template #prefixNewsStats><i nz-icon nzType="file-text"></i></ng-template>
+      </nz-row>
+      <nz-row>
+        <nz-statistic [nzValue]="666" [nzTitle]="'Users'" [nzPrefix]="prefixUsersStats"></nz-statistic>
+        <ng-template #prefixUsersStats><i nz-icon nzType="user"></i></ng-template>
+      </nz-row>
+      <nz-row>
+        <nz-statistic [nzValue]="666" [nzTitle]="'Artists'" [nzPrefix]="prefixArtistsStats"></nz-statistic>
+        <ng-template #prefixArtistsStats><i nz-icon nzType="thunderbolt"></i></ng-template>
+      </nz-row>
+      <div>
+        <nz-divider nzText="Admin Panel"></nz-divider>
+        <nz-row [nzGutter]="[16, 16]">
+          <nz-col nz-col class="gutter-row" [nzSpan]="24">
+            <button nz-button nzType="default" nzBlock>
+              <i nz-icon nzType="file-text"></i>
+              News Management
+            </button>
+          </nz-col>
+          <nz-col nz-col class="gutter-row" [nzSpan]="24">
+            <button nz-button nzType="default" nzBlock>
+              <i nz-icon nzType="team"></i>
+              Users Management
+            </button>
+          </nz-col>
+          <nz-col nz-col class="gutter-row" [nzSpan]="24">
+            <button nz-button nzType="default" nzBlock>
+              <i nz-icon nzType="thunderbolt"></i>
+              Artists Management
+            </button>
+          </nz-col>
+        </nz-row>
+      </div>
+    </div>
+  </section>
+</div>
