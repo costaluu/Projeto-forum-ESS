@@ -13,7 +13,7 @@ export interface News {
   styleUrls: ['./news-management.component.css'],
 })
 export class NewsManagementComponent implements OnInit {
-  editCache: { [key: string]: { edit: boolean; data: News } } = {};
+  editCache: { [key: string]: { edit: Boolean; data: News } } = {};
   listOfData: News[] = [];
 
   startEdit(id: string): void {

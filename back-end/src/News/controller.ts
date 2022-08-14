@@ -1,70 +1,142 @@
-import { Request } from "express";
-import NewsDB from "./news";
-import { News } from "../types";
+import { Request, Response } from 'express'
+import NewsDB from './news'
+import { HTTP_SUCCESS, HTTP_BAD_REQUEST, HTTP_NOT_FOUND, HTTP_ERROR, News, HttpResponse } from '../types'
 
-function validator(fields: string[], params: Object): boolean {
-  for (var i = 0; i < fields.length; i++) {
-    if (params.hasOwnProperty(fields[i]) === false) return false;
-  }
+function validator(fields: string[], params: Object): Boolean {
+    // Checagem dos parametros da requisição HTTP
+    for (var i = 0; i < fields.length; i++) {
+        if (params.hasOwnProperty(fields[i]) === false) return false
+    }
 
-  return true;
+    return true
 }
 
-export function getNews(request: Request): News | undefined {
-  const valid = validator(["id"], request.body);
+export function getNews(request: Request, response: Response): void {
+    const valid = validator(['id'], request.body)
 
-  if (!valid) {
-    return undefined;
-  }
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
 
-  let db: NewsDB = new NewsDB();
-  let result: News | undefined = db.getNews(request.body.id);
+        return
+    }
 
-  return result;
+    let db: NewsDB = new NewsDB()
+    let result: News | undefined = db.getNews(request.body.id)
+
+    if (result == undefined) {
+        response.send(HTTP_NOT_FOUND)
+    } else {
+        let httpResponse: HttpResponse = HTTP_SUCCESS
+        httpResponse.result = result
+
+        response.send(httpResponse)
+    }
+
+    return
 }
 
-export function createNews(request: Request): boolean {
-  const valid = validator(["id", "title", "date", "markdownText"], request.body);
+export function getAllNews(request: Request, response: Response): void {
+    const valid = validator([], request.body)
 
-  if (!valid) {
-    return false;
-  }
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
 
-  let db: NewsDB = new NewsDB();
-  db.createNews(request.body);
+        return
+    }
 
-  return true;
+    let db: NewsDB = new NewsDB()
+    let result: News[] = db.getAllNews()
+
+    if (result == undefined) {
+        response.send(HTTP_NOT_FOUND)
+    } else {
+        let httpResponse: HttpResponse = HTTP_SUCCESS
+        httpResponse.result = result
+
+        response.send(httpResponse)
+    }
+
+    return
 }
 
-export function deleteNews(request: Request): boolean {
-  const valid = validator(["id"], request.body);
+export function createNews(request: Request, response: Response): void {
+    const valid = validator(['id', 'title', 'date', 'markdownText'], request.body)
 
-  if (!valid) {
-    return false;
-  }
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
 
-  let db: NewsDB = new NewsDB();
-  db.deleteNews(request.body.id);
+        return
+    }
 
-  return true;
+    let db: NewsDB = new NewsDB()
+
+    let createNews: Promise<Boolean> = db.createNews({
+        id: request.body.id,
+        title: request.body.title,
+        date: request.body.date,
+        markdownText: request.body.markdownText,
+    } as News)
+
+    createNews.then((result: Boolean) => {
+        if (result) {
+            response.send(HTTP_SUCCESS)
+        } else {
+            response.send(HTTP_ERROR)
+        }
+    })
+
+    return
 }
 
-export function editNews(request: Request): boolean {
-  const valid = validator(["id", "title", "date", "markdownText"], request.body);
+export function deleteNews(request: Request, response: Response): void {
+    const valid = validator(['id'], request.body)
 
-  if (!valid) {
-    return false;
-  }
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
 
-  let db: NewsDB = new NewsDB();
-  db.editNews(request.body.id, request.body);
+        return
+    }
 
-  return true;
+    let db: NewsDB = new NewsDB()
+
+    let createNews: Promise<Boolean> = db.deleteNews(request.body.id)
+
+    createNews.then((result: Boolean) => {
+        if (result) {
+            response.send(HTTP_SUCCESS)
+        } else {
+            response.send(HTTP_ERROR)
+        }
+    })
+
+    return
 }
 
-export async function saveNews(request: Request): Promise<boolean> {
-  let db: NewsDB = new NewsDB();
-  db.saveNews();
+export function editNews(request: Request, response: Response): void {
+    const valid = validator(['id', 'title', 'date', 'markdownText'], request.body)
 
-  return true;
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
+
+        return
+    }
+
+    let db: NewsDB = new NewsDB()
+
+    let createNews: Promise<Boolean> = db.editNews(request.body.id, {
+        id: request.body.id,
+        title: request.body.title,
+        date: request.body.date,
+        markdownText: request.body.markdownText,
+    } as News)
+
+    createNews.then((result: Boolean) => {
+        if (result) {
+            response.send(HTTP_SUCCESS)
+        } else {
+            response.send(HTTP_ERROR)
+        }
+    })
+
+    return
 }
