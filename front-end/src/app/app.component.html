@@ -1,56 +1,53 @@
 <div class="grid-container">
-  <section class="header-logo-name flex justify-content-start align-items-center">
-    Logo + Name
-  </section>
-  <section class="header-menu flex justify-content-evenly">
-    <nz-space>
-      <a nz-button nzType="text" routerLink="home">
-        <i nz-icon nzType="home"></i>
-        <span>Home</span>
-      </a>
-      <a nz-button nzType="text">
-        <i nz-icon nzType="team"></i>
-        <span>Users</span>
-      </a>
-      <a nz-button nzType="text">
-        <i nz-icon nzType="thunderbolt"></i>
-        <span>Artists</span>
-      </a>
-    </nz-space>
-  </section>
-  <section class="header-button">
-    <div *ngIf="logged; else elseBlock">
-      <nz-space>
-        <nz-avatar *nzSpaceItem [nzShape]="'square'" [nzText]="'B'" [ngStyle]="{ 'background-color': '#000' }"></nz-avatar>
-        <button *nzSpaceItem nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
-          Baiano
-          <i nz-icon nzType="down"></i>
-        </button>
-      </nz-space>
-      <nz-dropdown-menu #userMenu="nzDropdownMenu">
-        <ul nz-menu nzMode="inline">
-          <li nz-menu-item>
-            <i nz-icon nzType="user"></i>
-            <span>Profile</span>
-          </li>
-          <li nz-menu-item>
-            <i nz-icon nzType="logout"></i>
-            <span>Log Out</span>
-          </li>
-        </ul>
-      </nz-dropdown-menu>
-    </div>
-    <ng-template #elseBlock>
-      <nz-space>
-        <button *nzSpaceItem nz-button nzType="primary" routerLink="login">
-          <i nz-icon nzType="login"></i>
-          Log In
-        </button>
-      </nz-space>
-    </ng-template>
-  </section>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
+    <section class="header-logo-name">Logo + Name</section>
+    <section class="header-menu">
+        <nz-space nzAlign="center">
+            <a *nzSpaceItem nz-button nzType="text" routerLink="home">
+                <i nz-icon nzType="home"></i>
+                <span>Home</span>
+            </a>
+            <a *nzSpaceItem nz-button nzType="text">
+                <i nz-icon nzType="team"></i>
+                <span>Users</span>
+            </a>
+            <a *nzSpaceItem nz-button nzType="text">
+                <i nz-icon nzType="thunderbolt"></i>
+                <span>Artists</span>
+            </a>
+        </nz-space>
+    </section>
+    <section class="header-button">
+        <div *ngIf="logged; else elseBlock">
+            <nz-space>
+                <nz-avatar *nzSpaceItem [nzShape]="'square'" [nzText]="'B'" [ngStyle]="{ 'background-color': '#000' }"></nz-avatar>
+                <button *nzSpaceItem nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
+                    Baiano
+                    <i nz-icon nzType="down"></i>
+                </button>
+            </nz-space>
+            <nz-dropdown-menu #userMenu="nzDropdownMenu">
+                <ul nz-menu nzMode="inline">
+                    <li nz-menu-item>
+                        <i nz-icon nzType="user"></i>
+                        <span>Profile</span>
+                    </li>
+                    <li nz-menu-item>
+                        <i nz-icon nzType="logout"></i>
+                        <span>Log Out</span>
+                    </li>
+                </ul>
+            </nz-dropdown-menu>
+        </div>
+        <ng-template #elseBlock>
+            <nz-space>
+                <button *nzSpaceItem nz-button nzType="primary" routerLink="login">
+                    <i nz-icon nzType="login"></i>
+                    Log In
+                </button>
+            </nz-space>
+        </ng-template>
+    </section>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
 </div>
-
