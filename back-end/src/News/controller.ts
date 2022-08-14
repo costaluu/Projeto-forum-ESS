@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import NewsDB from './news'
 import { HTTP_SUCCESS, HTTP_BAD_REQUEST, HTTP_NOT_FOUND, HTTP_ERROR, News, HttpResponse } from '../types'
 
-function validator(fields: string[], params: Object): Boolean {
+export function validator(fields: string[], params: Object): Boolean {
     // Checagem dos parametros da requisição HTTP
     for (var i = 0; i < fields.length; i++) {
         if (params.hasOwnProperty(fields[i]) === false) return false

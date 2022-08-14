@@ -1,4 +1,5 @@
 import { News } from 'src/types'
+import { validator } from './controller'
 import NewsDB from './news'
 
 // Testes devem ser criados como [instancia].test.ts */
@@ -89,5 +90,20 @@ describe('News backend', () => {
         expect(spy).toBeCalled()
         expect(result).toBeTruthy()
         expect(database.db.length).toBe(0)
+    })
+
+    test('Http Validator should work properly', () => {
+        let params: Object = {
+            param1: 1,
+            param2: 2,
+        }
+
+        let result: Boolean = validator(['param1', 'param2'], params)
+
+        expect(result).toBeTruthy()
+
+        result = validator(['param1', 'param3'], params)
+
+        expect(result).toBeFalsy()
     })
 })
