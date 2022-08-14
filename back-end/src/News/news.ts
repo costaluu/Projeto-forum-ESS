@@ -30,7 +30,7 @@ class NewsDB {
     }
 
     createNews(news: News): Promise<Boolean> {
-        this.db.push(news)
+        this.db.unshift(news)
         let result: Promise<Boolean> = this.saveNews()
 
         return result
