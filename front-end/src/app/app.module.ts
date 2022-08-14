@@ -22,6 +22,9 @@ import { NzTableModule } from 'ng-zorro-antd/table'
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
 import { NzTypographyModule } from 'ng-zorro-antd/typography'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
+import { NzCollapseModule } from 'ng-zorro-antd/collapse'
+import { NzSelectModule } from 'ng-zorro-antd/select'
+import { NzMessageModule } from 'ng-zorro-antd/message'
 import {
     UserOutline,
     LogoutOutline,
@@ -32,6 +35,10 @@ import {
     LockOutline,
     DownOutline,
     FileTextOutline,
+    SettingOutline,
+    CheckOutline,
+    PlusSquareOutline,
+    DeleteOutline,
 } from '@ant-design/icons-angular/icons'
 import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/login/login.component'
@@ -47,6 +54,10 @@ const icons: IconDefinition[] = [
     LockOutline,
     DownOutline,
     FileTextOutline,
+    SettingOutline,
+    CheckOutline,
+    PlusSquareOutline,
+    DeleteOutline,
 ]
 
 @NgModule({
@@ -73,6 +84,9 @@ const icons: IconDefinition[] = [
         NzPopconfirmModule,
         NzTypographyModule,
         NzToolTipModule,
+        NzCollapseModule,
+        NzSelectModule,
+        NzMessageModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

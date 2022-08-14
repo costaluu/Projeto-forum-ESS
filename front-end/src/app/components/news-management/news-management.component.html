@@ -1,30 +1,54 @@
-<nz-card style="width:100%; min-height: 100%;" nzTitle="News Management">
-  <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Text</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of editRowTable.data">
-        <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
-          <td>{{ data.title }}</td>
-          <td nzEllipsis>{{ data.markdownText }}</td>
-          <td><a (click)="startEdit(data.id)">Edit</a></td>
-        </ng-container>
-        <ng-template #editTemplate>
-          <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.title"/></td>
-          <td nzEllipsis><input type="text" nz-input [(ngModel)]="editCache[data.id].data.markdownText"/></td>
-          <td>
-            <nz-space>
-              <a *nzSpaceItem (click)="saveEdit(data.id)" class="save">Save</a>
-              <a *nzSpaceItem nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data.id)" [nzCancelText]="'Cancel'" [nzOkText]="'Ok'">Cancel</a>
-            </nz-space>
-          </td>
-        </ng-template>
-      </tr>
-    </tbody>
-  </nz-table>
+<nz-card class="base-card" nzTitle="News Management">
+    <nz-space class="wfull" nzDirection="vertical">
+        <div *nzSpaceItem>
+            <button nz-button nzType="primary" (click)="onCreateNews()">
+                <i nz-icon nzType="plus-square"></i>
+                Create
+            </button>
+        </div>
+        <div *nzSpaceItem>
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <input type="text" nz-input placeholder="Search by title, author..." [(ngModel)]="filterText" (input)="filterNews()" />
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch>Search</button>
+            </ng-template>
+        </div>
+        <div *nzSpaceItem>
+            <nz-collapse [nzExpandIconPosition]="'right'">
+                <nz-collapse-panel *ngFor="let news of newsListFiltered; index as i" [nzHeader]="news.title" [nzActive]="false" [nzExtra]="extraTpl">
+                    <nz-space class="wfull" nzDirection="vertical">
+                        <span *nzSpaceItem>Title</span>
+                        <input *nzSpaceItem nz-input [nzSize]="'large'" placeholder="Title" [(ngModel)]="news.title" />
+                        <span *nzSpaceItem>Content</span>
+                        <textarea
+                            *nzSpaceItem
+                            nz-input
+                            [nzSize]="'large'"
+                            placeholder="Content"
+                            [nzAutosize]="{ minRows: 10, maxRows: 30 }"
+                            [(ngModel)]="news.markdownText"
+                        ></textarea>
+                        <div *nzSpaceItem style="float: right">
+                            <nz-space>
+                                <button *nzSpaceItem nz-button nzType="primary" (click)="onDeleteNews(news.id)" nzDanger>
+                                    <i nz-icon nzType="delete"></i>
+                                    Delete
+                                </button>
+                                <button *nzSpaceItem nz-button nzType="primary" (click)="onSaveNews(news.id, news.title, news.markdownText)">
+                                    <i nz-icon nzType="check"></i>
+                                    Save
+                                </button>
+                            </nz-space>
+                        </div>
+                    </nz-space>
+                    <ng-template #extraTpl>
+                        <span nz-typography>
+                            <strong> {{ news.edited ? 'Edited' : 'Created' }} at {{ news.date }} </strong>
+                        </span>
+                    </ng-template>
+                </nz-collapse-panel>
+            </nz-collapse>
+        </div>
+    </nz-space>
 </nz-card>

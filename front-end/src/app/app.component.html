@@ -1,20 +1,18 @@
 <div class="grid-container">
     <section class="header-logo-name">Logo + Name</section>
     <section class="header-menu">
-        <nz-space nzAlign="center">
-            <a *nzSpaceItem nz-button nzType="text" routerLink="home">
-                <i nz-icon nzType="home"></i>
-                <span>Home</span>
-            </a>
-            <a *nzSpaceItem nz-button nzType="text">
-                <i nz-icon nzType="team"></i>
-                <span>Users</span>
-            </a>
-            <a *nzSpaceItem nz-button nzType="text">
-                <i nz-icon nzType="thunderbolt"></i>
-                <span>Artists</span>
-            </a>
-        </nz-space>
+        <a nz-button nzType="text" routerLink="home">
+            <i nz-icon nzType="home"></i>
+            <span>Home</span>
+        </a>
+        <a nz-button nzType="text">
+            <i nz-icon nzType="team"></i>
+            <span>Users</span>
+        </a>
+        <a nz-button nzType="text">
+            <i nz-icon nzType="thunderbolt"></i>
+            <span>Artists</span>
+        </a>
     </section>
     <section class="header-button">
         <div *ngIf="logged; else elseBlock">

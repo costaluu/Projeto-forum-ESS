@@ -17,7 +17,16 @@
                 <ng-template #prefixArtistsStats><i nz-icon nzType="thunderbolt"></i></ng-template>
             </div>
             <nz-divider *nzSpaceItem nzText="Admin Panel"></nz-divider>
-            <button *nzSpaceItem nzTooltipTitle="News Management" nzTooltipPlacement="leftTop" nz-button nz-tooltip nzType="default" nzBlock>
+            <button
+                *nzSpaceItem
+                nzTooltipTitle="News Management"
+                nzTooltipPlacement="leftTop"
+                nz-button
+                nz-tooltip
+                nzType="default"
+                nzBlock
+                routerLink="management/news"
+            >
                 <i nz-icon nzType="file-text"></i>
                 <span class="lg-text-hide">News Management</span>
             </button>
