@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { News } from 'src/types'
+import { HttpResponse, News } from 'src/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { nanoid } from 'nanoid'
+import { NewsManagementService } from 'src/app/services/news-management.service'
 
 @Component({
     selector: 'app-news-management',
@@ -13,28 +14,17 @@ export class NewsManagementComponent implements OnInit {
     newsListFiltered: News[] = []
     filterText: string = ''
 
-    constructor(private message: NzMessageService) {}
+    constructor(private message: NzMessageService, private newsManagementService: NewsManagementService) {}
 
     ngOnInit(): void {
-        this.newsList = [
-            {
-                id: 'fake-id1',
-                title: 'fake-title',
-                date: '1/1/1 19:53',
-                markdownText: 'fake-md',
-                edited: true,
-            },
-        ]
-
-        this.newsListFiltered = [
-            {
-                id: 'fake-id1',
-                title: 'fake-title',
-                date: '1/1/1 19:53',
-                markdownText: 'fake-md',
-                edited: true,
-            },
-        ]
+        this.newsManagementService.getAll().subscribe((res: HttpResponse) => {
+            if (res.status == 200) {
+                this.newsList = []
+            } else {
+                this.newsList = res.result as News[]
+                this.newsListFiltered = res.result as News[]
+            }
+        })
     }
 
     findIndexFromFilteredList(id: string): number {
