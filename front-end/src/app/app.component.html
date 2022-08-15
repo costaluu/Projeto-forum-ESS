@@ -1,44 +1,46 @@
 <div class="grid-container">
     <section class="header-logo-name">Logo + Name</section>
     <section class="header-menu">
-        <a nz-button nzType="text" routerLink="home">
+        <a nz-button nzType="text" [nzSize]="'large'" routerLink="home">
             <i nz-icon nzType="home"></i>
             <span>Home</span>
         </a>
-        <a nz-button nzType="text">
+        <a nz-button nzType="text" [nzSize]="'large'">
             <i nz-icon nzType="team"></i>
             <span>Users</span>
         </a>
-        <a nz-button nzType="text">
+        <a nz-button nzType="text" [nzSize]="'large'">
             <i nz-icon nzType="thunderbolt"></i>
             <span>Artists</span>
         </a>
     </section>
     <section class="header-button">
-        <div *ngIf="logged; else elseBlock">
-            <nz-space>
-                <nz-avatar *nzSpaceItem [nzShape]="'square'" [nzText]="'B'" [ngStyle]="{ 'background-color': '#000' }"></nz-avatar>
-                <button *nzSpaceItem nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
-                    Baiano
-                    <i nz-icon nzType="down"></i>
-                </button>
+        <div *ngIf="logged; else elseBlock" style="width: 100%">
+            <nz-space class="user-drodown-container" nzAlign="center" nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
+                <div *nzSpaceItem class="text-position">
+                    <span nz-typography>
+                        <strong> {{ this.userInfo.name }} </strong>
+                    </span>
+                    <span nz-typography nzType="secondary">Admin</span>
+                </div>
+                <nz-avatar *nzSpaceItem [nzShape]="'square'" [nzText]="this.userInfo.name[0]" [ngStyle]="{ 'background-color': '#000' }"></nz-avatar>
             </nz-space>
             <nz-dropdown-menu #userMenu="nzDropdownMenu">
                 <ul nz-menu nzMode="inline">
                     <li nz-menu-item>
                         <i nz-icon nzType="user"></i>
-                        <span>Profile</span>
+                        <span>&nbsp;&nbsp;Profile</span>
                     </li>
                     <li nz-menu-item>
                         <i nz-icon nzType="logout"></i>
-                        <span>Log Out</span>
+                        <span>&nbsp;&nbsp;Log Out</span>
                     </li>
                 </ul>
             </nz-dropdown-menu>
         </div>
         <ng-template #elseBlock>
             <nz-space>
-                <button *nzSpaceItem nz-button nzType="primary" routerLink="login">
+                <button *nzSpaceItem nz-button nzType="primary" [nzSize]="'large'" routerLink="login">
                     <i nz-icon nzType="login"></i>
                     Log In
                 </button>
