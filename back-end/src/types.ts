@@ -25,4 +25,5 @@ export interface News {
     title: string
     date: string
     markdownText: string
+    edited: boolean
 }

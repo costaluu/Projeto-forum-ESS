@@ -21,11 +21,11 @@ export class NewsManagementService {
 
     edit(news: News): Observable<HttpResponse> {
         return this.httpClient.put<HttpResponse>(this.baseUrl, {
-            body: { id: news.id, title: news.title, date: news.date, markdownText: news.markdownText, edited: news.edited },
+            body: news,
         })
     }
 
     getAll(): Observable<HttpResponse> {
-        return this.httpClient.get<HttpResponse>(this.baseUrl + 'All')
+        return this.httpClient.get<HttpResponse>(this.baseUrl + 'all')
     }
 }

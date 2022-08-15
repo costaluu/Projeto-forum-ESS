@@ -15,7 +15,7 @@ app.get('/', (request: Request, response: Response) => {
 })
 
 app.get('/news', NewsController.getNews)
-app.get('/allnews', NewsController.getAllNews)
+app.get('/newsall', NewsController.getAllNews)
 app.post('/news', NewsController.createNews)
 app.delete('/news', NewsController.deleteNews)
 app.put('/news', NewsController.createNews)
