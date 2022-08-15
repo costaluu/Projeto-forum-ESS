@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
 import NewsDB from './news'
-import { HTTP_SUCCESS, HTTP_BAD_REQUEST, HTTP_NOT_FOUND, HTTP_ERROR, News, HttpResponse } from '../types'
+import { HTTP_SUCCESS, HTTP_BAD_REQUEST, HTTP_NOT_FOUND, HTTP_ERROR, News, ApiResponse } from '../types'
+import Logger from '@ptkdev/logger'
+
+const log = new Logger()
 
 export function validator(fields: string[], params: Object): Boolean {
     // Checagem dos parametros da requisição HTTP
@@ -12,6 +15,8 @@ export function validator(fields: string[], params: Object): Boolean {
 }
 
 export function getNews(request: Request, response: Response): void {
+    log.info('GetNews request received')
+
     const valid = validator(['id'], request.body)
 
     if (!valid) {
@@ -26,7 +31,7 @@ export function getNews(request: Request, response: Response): void {
     if (result == undefined) {
         response.send(HTTP_NOT_FOUND)
     } else {
-        let httpResponse: HttpResponse = HTTP_SUCCESS
+        let httpResponse: ApiResponse = HTTP_SUCCESS
         httpResponse.result = result
 
         response.send(httpResponse)
@@ -36,6 +41,8 @@ export function getNews(request: Request, response: Response): void {
 }
 
 export function getAllNews(request: Request, response: Response): void {
+    log.info('GetAllNews request received')
+
     const valid = validator([], request.body)
 
     if (!valid) {
@@ -50,7 +57,7 @@ export function getAllNews(request: Request, response: Response): void {
     if (result == undefined) {
         response.send(HTTP_NOT_FOUND)
     } else {
-        let httpResponse: HttpResponse = HTTP_SUCCESS
+        let httpResponse: ApiResponse = HTTP_SUCCESS
         httpResponse.result = result
 
         response.send(httpResponse)
@@ -60,6 +67,8 @@ export function getAllNews(request: Request, response: Response): void {
 }
 
 export function createNews(request: Request, response: Response): void {
+    log.info('CreateNews request received')
+
     const valid = validator(['id', 'title', 'date', 'markdownText'], request.body)
 
     if (!valid) {
@@ -89,6 +98,8 @@ export function createNews(request: Request, response: Response): void {
 }
 
 export function deleteNews(request: Request, response: Response): void {
+    log.info('DeleteNews request received')
+
     const valid = validator(['id'], request.body)
 
     if (!valid) {
@@ -99,9 +110,9 @@ export function deleteNews(request: Request, response: Response): void {
 
     let db: NewsDB = new NewsDB()
 
-    let createNews: Promise<Boolean> = db.deleteNews(request.body.id)
+    let deleteNews: Promise<Boolean> = db.deleteNews(request.body.id)
 
-    createNews.then((result: Boolean) => {
+    deleteNews.then((result: Boolean) => {
         if (result) {
             response.send(HTTP_SUCCESS)
         } else {
@@ -113,6 +124,8 @@ export function deleteNews(request: Request, response: Response): void {
 }
 
 export function editNews(request: Request, response: Response): void {
+    log.info('EditNews request received')
+
     const valid = validator(['id', 'title', 'date', 'markdownText'], request.body)
 
     if (!valid) {
@@ -123,14 +136,14 @@ export function editNews(request: Request, response: Response): void {
 
     let db: NewsDB = new NewsDB()
 
-    let createNews: Promise<Boolean> = db.editNews(request.body.id, {
+    let editNews: Promise<Boolean> = db.editNews(request.body.id, {
         id: request.body.id,
         title: request.body.title,
         date: request.body.date,
         markdownText: request.body.markdownText,
     } as News)
 
-    createNews.then((result: Boolean) => {
+    editNews.then((result: Boolean) => {
         if (result) {
             response.send(HTTP_SUCCESS)
         } else {

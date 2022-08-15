@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { HttpResponse, News } from 'src/types'
+import { ApiResponse, News } from 'src/types'
 
 @Injectable({
     providedIn: 'root',
@@ -11,21 +11,21 @@ export class NewsManagementService {
 
     constructor(private httpClient: HttpClient) {}
 
-    create(news: News): Observable<HttpResponse> {
-        return this.httpClient.post<HttpResponse>(this.baseUrl, news)
+    create(news: News): Observable<ApiResponse> {
+        return this.httpClient.post<ApiResponse>(this.baseUrl, news)
     }
 
-    delete(id: string): Observable<HttpResponse> {
-        return this.httpClient.delete<HttpResponse>(this.baseUrl, { body: { id: id } })
+    delete(id: string): Observable<ApiResponse> {
+        return this.httpClient.delete<ApiResponse>(this.baseUrl, { body: { id: id } })
     }
 
-    edit(news: News): Observable<HttpResponse> {
-        return this.httpClient.put<HttpResponse>(this.baseUrl, {
-            body: news,
-        })
+    edit(news: News): Observable<ApiResponse> {
+        return this.httpClient.put<ApiResponse>(this.baseUrl, news)
     }
 
-    getAll(): Observable<HttpResponse> {
-        return this.httpClient.get<HttpResponse>(this.baseUrl + 'all')
+    getAll(): Observable<ApiResponse> {
+        let corsHeader = new HttpHeaders()
+
+        return this.httpClient.get<ApiResponse>(this.baseUrl + 'all', { headers: corsHeader })
     }
 }

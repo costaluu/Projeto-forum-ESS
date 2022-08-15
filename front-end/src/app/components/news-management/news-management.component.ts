@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { HttpResponse, News } from 'src/types'
+import { ApiResponse, News } from 'src/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { nanoid } from 'nanoid'
 import { NewsManagementService } from 'src/app/services/news-management.service'
@@ -14,18 +14,11 @@ export class NewsManagementComponent implements OnInit {
     newsListFiltered: News[] = []
     filterText: string = ''
 
-    constructor(private message: NzMessageService, private newsManagementService: NewsManagementService) {}
-
-    ngOnInit(): void {
-        this.newsManagementService.getAll().subscribe((res: HttpResponse) => {
-            if (res.status == 200) {
-                this.newsList = []
-            } else {
-                this.newsList = res.result as News[]
-                this.newsListFiltered = res.result as News[]
-            }
-        })
+    constructor(private message: NzMessageService, private newsManagementService: NewsManagementService) {
+        this.getAllNews()
     }
+
+    ngOnInit(): void {}
 
     findIndexFromFilteredList(id: string): number {
         let i: number = 0
@@ -79,12 +72,19 @@ export class NewsManagementComponent implements OnInit {
             edited: false,
         }
 
-        this.newsList.unshift(temp)
+        this.newsManagementService.create(temp).subscribe((res: ApiResponse) => {
+            console.log(res)
+            if (res.status == 200) {
+                this.newsList.unshift(temp)
 
-        // Create to real db via API
+                // Create to real db via API
 
-        this.clearFilter()
-        this.message.create('success', `New news created successfully, don't forget to save it!`)
+                this.clearFilter()
+                this.message.create('success', `New news created successfully!`)
+            } else {
+                this.message.create('error', `Failed to create the news!`)
+            }
+        })
     }
 
     onSaveNews(id: string, title: string, markdownText: string): void {
@@ -94,27 +94,60 @@ export class NewsManagementComponent implements OnInit {
         let date = currentDate.toLocaleDateString()
         let hour = currentDate.toLocaleTimeString()
 
-        this.newsList[find].title = title
-        this.newsList[find].date = date + ' ' + hour.slice(0, -3)
-        this.newsList[find].markdownText = markdownText
-        this.newsList[find].edited = true
+        let temp: News = {
+            id: id,
+            title: title,
+            date: date + ' ' + hour.slice(0, -3),
+            markdownText: markdownText,
+            edited: true,
+        }
 
-        this.clearFilter()
+        this.newsManagementService.edit(temp).subscribe((res: ApiResponse) => {
+            console.log(res)
+            if (res.status == 200) {
+                this.newsList[find].title = title
+                this.newsList[find].date = date + ' ' + hour.slice(0, -3)
+                this.newsList[find].markdownText = markdownText
+                this.newsList[find].edited = true
 
-        // Save to real db via API
+                this.clearFilter()
 
-        this.message.create('success', `Saved!`)
+                // Save to real db via API
+
+                this.message.create('success', `Saved!`)
+            } else {
+                this.message.create('error', `Failed to save the news!`)
+            }
+        })
     }
 
     onDeleteNews(id: string): void {
         let find: number = this.findIndexFromFilteredList(id)
 
-        this.newsList.splice(find, 1)
+        this.newsManagementService.delete(id).subscribe((res: ApiResponse) => {
+            if (res.status == 200) {
+                this.newsList.splice(find, 1)
+                this.clearFilter()
+                this.message.create('success', `News deleted successfully!`)
+            } else {
+                this.message.create('error', `Failed to create the news!`)
+            }
+        })
+    }
 
-        // Delete to real db via API
+    getAllNews() {
+        this.newsManagementService.getAll().subscribe((res: ApiResponse) => {
+            if (res.status == 200) {
+                this.message.create('success', `News loaded!`)
 
-        this.clearFilter()
+                this.newsList = res.result as News[]
+                this.newsListFiltered = res.result as News[]
+            } else {
+                this.message.create('error', `Failed to load news!`)
 
-        this.message.create('success', `New news deleted successfully, don't forget to save it!`)
+                this.newsList = []
+                this.newsListFiltered = []
+            }
+        })
     }
 }

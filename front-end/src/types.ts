@@ -1,6 +1,6 @@
 // O arquivo types.ts é uma especie de contrato entre o back-end e o front que vão trocar os mesmos tipos de dados.
 
-export type HttpResponse = {
+export type ApiResponse = {
     msg: string
     status: number
     result?: Object
