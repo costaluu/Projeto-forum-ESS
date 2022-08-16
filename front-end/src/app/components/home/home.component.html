@@ -17,7 +17,7 @@
                 <ng-template #prefixArtistsStats><i nz-icon nzType="thunderbolt"></i></ng-template>
             </div>
             <div *nzSpaceItem>
-                <div *ngIf="isAdmin">
+                <div *ngIf="isAdmin | async">
                     <nz-space class="space-center" nzDirection="vertical">
                         <nz-divider *nzSpaceItem nzText="Admin Panel"></nz-divider>
                         <button

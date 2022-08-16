@@ -15,15 +15,20 @@
         </a>
     </section>
     <section class="header-button">
-        <div *ngIf="logged; else elseBlock" style="width: 100%">
+        <div *ngIf="logged | async; else elseBlock" style="width: 100%">
             <nz-space class="user-drodown-container" nzAlign="center" nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
                 <div *nzSpaceItem class="text-position">
                     <span nz-typography>
-                        <strong> {{ this.userInfo.name }} </strong>
+                        <strong>{{ (userInfo | async)?.name }}</strong>
                     </span>
-                    <span nz-typography nzType="secondary">Admin</span>
+                    <span nz-typography nzType="secondary">{{ (userInfo | async)?.type == 2 ? 'Admin' : 'User' }}</span>
                 </div>
-                <nz-avatar *nzSpaceItem [nzShape]="'square'" [nzText]="this.userInfo.name[0]" [ngStyle]="{ 'background-color': '#000' }"></nz-avatar>
+                <nz-avatar
+                    *nzSpaceItem
+                    [nzShape]="'square'"
+                    [nzText]="(userInfo | async)?.name"
+                    [ngStyle]="{ 'background-color': '#000' }"
+                ></nz-avatar>
             </nz-space>
             <nz-dropdown-menu #userMenu="nzDropdownMenu">
                 <ul nz-menu nzMode="inline">

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { Store } from '@ngrx/store'
+import { map, Observable } from 'rxjs'
+import { User } from 'src/types'
+import { AppState } from './app.store'
 
 @Component({
     selector: 'app-root',
@@ -8,21 +11,22 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class AppComponent implements OnInit {
     title = 'front-end'
-    logged: Boolean = false
 
-    userInfo: any = {}
-
-    constructor(private activatedRoute: ActivatedRoute) {}
-
-    ngOnInit() {
-        this.activatedRoute.paramMap.subscribe(() => {
-            this.logged = this.isUserLogged()
-
-            if (this.logged) {
-                this.userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
-            }
+    logged: Observable<Boolean> = this.store.select('app').pipe(
+        map((state) => {
+            return state.logged
         })
-    }
+    )
+
+    userInfo: Observable<User> = this.store.select('app').pipe(
+        map((state) => {
+            return state.user
+        })
+    )
+
+    constructor(private store: Store<{ app: AppState }>) {}
+
+    ngOnInit() {}
 
     isUserLogged(): Boolean {
         if (localStorage.getItem('userInfo') == null) {

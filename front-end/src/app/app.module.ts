@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { StoreModule } from '@ngrx/store'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -44,6 +45,7 @@ import {
 import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/login/login.component'
 import { NewsManagementComponent } from './components/news-management/news-management.component'
+import { appReducer } from './app.store'
 
 const icons: IconDefinition[] = [
     UserOutline,
@@ -66,6 +68,7 @@ const icons: IconDefinition[] = [
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        StoreModule.forRoot({ app: appReducer }),
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
