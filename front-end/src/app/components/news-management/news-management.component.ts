@@ -66,10 +66,15 @@ export class NewsManagementComponent implements OnInit {
 
         let temp: News = {
             id: nanoid(),
+            authorId: '',
             title: 'Change the title',
             date: date + ' ' + hour.slice(0, -3),
             markdownText: '',
             edited: false,
+            views: 0,
+            likes: 0,
+            comments: [],
+            tags: [],
         }
 
         this.newsManagementService.create(temp).subscribe((res: ApiResponse) => {
@@ -96,10 +101,15 @@ export class NewsManagementComponent implements OnInit {
 
         let temp: News = {
             id: id,
+            authorId: '',
             title: title,
             date: date + ' ' + hour.slice(0, -3),
             markdownText: markdownText,
             edited: true,
+            views: 0,
+            likes: 0,
+            comments: [],
+            tags: [],
         }
 
         this.newsManagementService.edit(temp).subscribe((res: ApiResponse) => {

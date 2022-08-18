@@ -1,3 +1,5 @@
+//O arquivo types.ts é uma especie de contrato entre o back-end e o front que vão trocar os mesmos tipos de dados.
+
 export type ApiResponse = {
     msg: string
     status: number
@@ -20,10 +22,27 @@ export interface User {
     type: UserType
 }
 
+interface Tag {
+    content: string
+    color: string
+}
+
+interface Comment {
+    readonly id: string
+    readonly authorId: string
+    content: string
+    likes: number
+}
+
 export interface News {
     readonly id: string
+    readonly authorId: string
     title: string
     date: string
     markdownText: string
     edited: boolean
+    views: number
+    likes: number
+    comments: Comment[]
+    tags: Tag[]
 }
