@@ -22,12 +22,7 @@ export interface User {
     type: UserType
 }
 
-interface Tag {
-    content: string
-    color: string
-}
-
-interface Comment {
+export interface Comment {
     readonly id: string
     readonly authorId: string
     content: string
@@ -44,5 +39,5 @@ export interface News {
     views: number
     likes: number
     comments: Comment[]
-    tags: Tag[]
+    tags: string[]
 }

@@ -12,6 +12,9 @@ import { NewsManagementService } from 'src/app/services/news-management.service'
 export class NewsManagementComponent implements OnInit {
     newsList: News[] = []
     newsListFiltered: News[] = []
+
+    tagsOptions: string[] = ['Rap', 'Nacional']
+
     filterText: string = ''
 
     constructor(private message: NzMessageService, private newsManagementService: NewsManagementService) {
@@ -82,8 +85,6 @@ export class NewsManagementComponent implements OnInit {
             if (res.status == 200) {
                 this.newsList.unshift(temp)
 
-                // Create to real db via API
-
                 this.clearFilter()
                 this.message.create('success', `New news created successfully!`)
             } else {
@@ -92,38 +93,23 @@ export class NewsManagementComponent implements OnInit {
         })
     }
 
-    onSaveNews(id: string, title: string, markdownText: string): void {
+    onSaveNews(id: string, title: string, markdownText: string, tags: string[]): void {
         let find: number = this.findIndexFromFilteredList(id)
 
         let currentDate = new Date()
         let date = currentDate.toLocaleDateString()
         let hour = currentDate.toLocaleTimeString()
 
-        let temp: News = {
-            id: id,
-            authorId: '',
-            title: title,
-            date: date + ' ' + hour.slice(0, -3),
-            markdownText: markdownText,
-            edited: true,
-            views: 0,
-            likes: 0,
-            comments: [],
-            tags: [],
-        }
+        this.newsList[find].title = title
+        this.newsList[find].date = date + ' ' + hour.slice(0, -3)
+        this.newsList[find].markdownText = markdownText
+        this.newsList[find].edited = true
+        this.newsList[find].tags = tags
 
-        this.newsManagementService.edit(temp).subscribe((res: ApiResponse) => {
+        this.newsManagementService.edit(this.newsList[find]).subscribe((res: ApiResponse) => {
             console.log(res)
             if (res.status == 200) {
-                this.newsList[find].title = title
-                this.newsList[find].date = date + ' ' + hour.slice(0, -3)
-                this.newsList[find].markdownText = markdownText
-                this.newsList[find].edited = true
-
                 this.clearFilter()
-
-                // Save to real db via API
-
                 this.message.create('success', `Saved!`)
             } else {
                 this.message.create('error', `Failed to save the news!`)

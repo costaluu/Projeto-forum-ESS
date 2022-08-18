@@ -27,6 +27,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { NzCollapseModule } from 'ng-zorro-antd/collapse'
 import { NzSelectModule } from 'ng-zorro-antd/select'
 import { NzMessageModule } from 'ng-zorro-antd/message'
+import { NzTabsModule } from 'ng-zorro-antd/tabs'
+import { NzPaginationModule } from 'ng-zorro-antd/pagination'
 import {
     UserOutline,
     LogoutOutline,
@@ -46,6 +48,7 @@ import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/login/login.component'
 import { NewsManagementComponent } from './components/news-management/news-management.component'
 import { appReducer } from './app.store'
+import { NewsComponent } from './components/news/news.component'
 
 const icons: IconDefinition[] = [
     UserOutline,
@@ -64,7 +67,7 @@ const icons: IconDefinition[] = [
 ]
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, LoginComponent, NewsManagementComponent],
+    declarations: [AppComponent, HomeComponent, LoginComponent, NewsManagementComponent, NewsComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -92,6 +95,8 @@ const icons: IconDefinition[] = [
         NzCollapseModule,
         NzSelectModule,
         NzMessageModule,
+        NzTabsModule,
+        NzPaginationModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

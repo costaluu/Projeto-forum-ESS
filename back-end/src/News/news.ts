@@ -61,19 +61,17 @@ class NewsDB {
         let find: News | undefined = this.getNews(id)
 
         if (find == undefined) {
-            return new Promise<Boolean>((resolve, reject) => {
+            return new Promise<Boolean>((resolve) => {
                 resolve(false)
             })
         }
 
         for (var i = 0; i < this.db.length; i++) {
             if (this.db[i].id == id) {
-                this.db.splice(i, 1)
+                this.db[i] = news
                 break
             }
         }
-
-        this.db.push(news)
 
         let result: Promise<Boolean> = this.saveNews()
 

@@ -69,7 +69,7 @@ export function getAllNews(request: Request, response: Response): void {
 export function createNews(request: Request, response: Response): void {
     log.info('CreateNews request received')
 
-    const valid = validator(['id', 'title', 'date', 'markdownText'], request.body)
+    const valid = validator(['id', 'authorId', 'title', 'date', 'markdownText', 'edited', 'views', 'likes', 'comments', 'tags'], request.body)
 
     if (!valid) {
         response.send(HTTP_BAD_REQUEST)
@@ -79,12 +79,7 @@ export function createNews(request: Request, response: Response): void {
 
     let db: NewsDB = new NewsDB()
 
-    let createNews: Promise<Boolean> = db.createNews({
-        id: request.body.id,
-        title: request.body.title,
-        date: request.body.date,
-        markdownText: request.body.markdownText,
-    } as News)
+    let createNews: Promise<Boolean> = db.createNews(request.body as News)
 
     createNews.then((result: Boolean) => {
         if (result) {
@@ -126,7 +121,7 @@ export function deleteNews(request: Request, response: Response): void {
 export function editNews(request: Request, response: Response): void {
     log.info('EditNews request received')
 
-    const valid = validator(['id', 'title', 'date', 'markdownText'], request.body)
+    const valid = validator(['id', 'authorId', 'title', 'date', 'markdownText', 'edited', 'views', 'likes', 'comments', 'tags'], request.body)
 
     if (!valid) {
         response.send(HTTP_BAD_REQUEST)
@@ -136,12 +131,7 @@ export function editNews(request: Request, response: Response): void {
 
     let db: NewsDB = new NewsDB()
 
-    let editNews: Promise<Boolean> = db.editNews(request.body.id, {
-        id: request.body.id,
-        title: request.body.title,
-        date: request.body.date,
-        markdownText: request.body.markdownText,
-    } as News)
+    let editNews: Promise<Boolean> = db.editNews(request.body.id, request.body as News)
 
     editNews.then((result: Boolean) => {
         if (result) {

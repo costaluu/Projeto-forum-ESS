@@ -24,8 +24,6 @@ export class NewsManagementService {
     }
 
     getAll(): Observable<ApiResponse> {
-        let corsHeader = new HttpHeaders()
-
-        return this.httpClient.get<ApiResponse>(this.baseUrl + 'all', { headers: corsHeader })
+        return this.httpClient.get<ApiResponse>(this.baseUrl + 'all')
     }
 }

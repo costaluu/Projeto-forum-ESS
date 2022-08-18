@@ -29,13 +29,31 @@
                             [nzAutosize]="{ minRows: 10, maxRows: 30 }"
                             [(ngModel)]="news.markdownText"
                         ></textarea>
+                        <span *nzSpaceItem>Tags</span>
+                        <nz-select
+                            *nzSpaceItem
+                            class="wfull"
+                            [nzMaxTagCount]="5"
+                            [nzMaxTagPlaceholder]="tagPlaceHolder"
+                            nzMode="multiple"
+                            nzPlaceHolder="Please select"
+                            [(ngModel)]="news.tags"
+                        >
+                            <nz-option *ngFor="let tag of tagsOptions" [nzLabel]="tag" [nzValue]="tag"></nz-option>
+                        </nz-select>
+                        <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
                         <div *nzSpaceItem style="float: right">
                             <nz-space>
                                 <button *nzSpaceItem nz-button nzType="primary" (click)="onDeleteNews(news.id)" nzDanger>
                                     <i nz-icon nzType="delete"></i>
                                     Delete
                                 </button>
-                                <button *nzSpaceItem nz-button nzType="primary" (click)="onSaveNews(news.id, news.title, news.markdownText)">
+                                <button
+                                    *nzSpaceItem
+                                    nz-button
+                                    nzType="primary"
+                                    (click)="onSaveNews(news.id, news.title, news.markdownText, news.tags)"
+                                >
                                     <i nz-icon nzType="check"></i>
                                     Save
                                 </button>
