@@ -146,7 +146,6 @@ export class NewsManagementComponent implements OnInit {
         }
 
         this.newsManagementService.create(temp).subscribe((res: ApiResponse) => {
-            console.log(res)
             if (res.status == 200) {
                 this.newsList.unshift(temp)
 
@@ -207,7 +206,7 @@ export class NewsManagementComponent implements OnInit {
 
     getAllNews() {
         this.newsManagementService.getAll().subscribe((res: ApiResponse) => {
-            if (res.status == 200) {
+            if (res.status == 200 || res.status == 404) {
                 this.message.create('success', `News loaded!`)
 
                 this.newsList = res.result as News[]

@@ -26,7 +26,13 @@ export interface Comment {
     readonly id: string
     readonly authorId: string
     content: string
-    likes: number
+    likes: Like[]
+    dislikes: Like[]
+}
+
+export interface Like {
+    readonly id: string
+    readonly authorId: string
 }
 
 export interface News {
@@ -37,7 +43,7 @@ export interface News {
     markdownText: string
     edited: boolean
     views: number
-    likes: number
+    likes: Like[]
     comments: Comment[]
     tags: string[]
 }

@@ -40,6 +40,35 @@ export function getNews(request: Request, response: Response): void {
     return
 }
 
+export function getNewsPage(request: Request, response: Response): void {
+    log.info('GetNewsPage request received')
+
+    const valid = validator(['pageId', 'newsPerPage'], request.params)
+
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
+
+        return
+    }
+
+    let pageId: number = parseInt(request.params.pageId)
+    let newsPerPage: number = parseInt(request.params.newsPerPage)
+
+    let db: NewsDB = new NewsDB()
+    let result: News[] = db.getNewsPage(pageId, newsPerPage)
+
+    if (result.length == 0) {
+        response.send(HTTP_NOT_FOUND)
+    } else {
+        let httpResponse: ApiResponse = HTTP_SUCCESS
+        httpResponse.result = result
+
+        response.send(httpResponse)
+    }
+
+    return
+}
+
 export function getAllNews(request: Request, response: Response): void {
     log.info('GetAllNews request received')
 
@@ -54,7 +83,7 @@ export function getAllNews(request: Request, response: Response): void {
     let db: NewsDB = new NewsDB()
     let result: News[] = db.getAllNews()
 
-    if (result == undefined) {
+    if (result.length == 0) {
         response.send(HTTP_NOT_FOUND)
     } else {
         let httpResponse: ApiResponse = HTTP_SUCCESS

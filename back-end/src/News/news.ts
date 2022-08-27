@@ -29,6 +29,10 @@ class NewsDB {
         return this.db
     }
 
+    getNewsPage(pageId: number, newsPerPage: number): News[] {
+        return this.db.slice((pageId - 1) * newsPerPage, Math.min(pageId * newsPerPage, this.db.length))
+    }
+
     createNews(news: News): Promise<Boolean> {
         this.db.unshift(news)
         let result: Promise<Boolean> = this.saveNews()
