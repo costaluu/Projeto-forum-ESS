@@ -17,7 +17,7 @@ export function validator(fields: string[], params: Object): Boolean {
 export function getNews(request: Request, response: Response): void {
     log.info('GetNews request received')
 
-    const valid = validator(['id'], request.body)
+    const valid = validator(['id'], request.params)
 
     if (!valid) {
         response.send(HTTP_BAD_REQUEST)
@@ -26,7 +26,7 @@ export function getNews(request: Request, response: Response): void {
     }
 
     let db: NewsDB = new NewsDB()
-    let result: News | undefined = db.getNews(request.body.id)
+    let result: News | undefined = db.getNews(request.params.id)
 
     if (result == undefined) {
         response.send(HTTP_NOT_FOUND)

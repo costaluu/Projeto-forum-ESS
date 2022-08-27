@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { HomeComponent } from './components/home/home.component'
 import { LoginComponent } from './components/login/login.component'
 import { NewsManagementComponent } from './components/news-management/news-management.component'
+import { NewsPageComponent } from './components/news-page/news-page.component'
 import { NewsComponent } from './components/news/news.component'
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'news', pathMatch: 'full' },
             { path: 'news', component: NewsComponent },
+            { path: 'news/:id', component: NewsPageComponent },
             { path: 'management/news', component: NewsManagementComponent },
         ],
     },

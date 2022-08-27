@@ -5,16 +5,22 @@
     <section class="right-sidebar">
         <nz-space class="space-center" nzDirection="vertical">
             <div *nzSpaceItem>
-                <nz-statistic [nzValue]="666" [nzTitle]="'News'" [nzPrefix]="prefixNewsStats"></nz-statistic>
-                <ng-template #prefixNewsStats><i nz-icon nzType="file-text"></i></ng-template>
+                <nz-card>
+                    <nz-statistic [nzValue]="666" [nzTitle]="'News'" [nzPrefix]="prefixNewsStats"></nz-statistic>
+                    <ng-template #prefixNewsStats><i nz-icon nzType="file-text"></i></ng-template>
+                </nz-card>
             </div>
             <div *nzSpaceItem>
-                <nz-statistic [nzValue]="666" [nzTitle]="'Users'" [nzPrefix]="prefixUsersStats"></nz-statistic>
-                <ng-template #prefixUsersStats><i nz-icon nzType="user"></i></ng-template>
+                <nz-card>
+                    <nz-statistic [nzValue]="666" [nzTitle]="'Users'" [nzPrefix]="prefixUsersStats"></nz-statistic>
+                    <ng-template #prefixUsersStats><i nz-icon nzType="user"></i></ng-template>
+                </nz-card>
             </div>
             <div *nzSpaceItem>
-                <nz-statistic [nzValue]="666" [nzTitle]="'Artists'" [nzPrefix]="prefixArtistsStats"></nz-statistic>
-                <ng-template #prefixArtistsStats><i nz-icon nzType="thunderbolt"></i></ng-template>
+                <nz-card>
+                    <nz-statistic [nzValue]="666" [nzTitle]="'Artists'" [nzPrefix]="prefixArtistsStats"></nz-statistic>
+                    <ng-template #prefixArtistsStats><i nz-icon nzType="thunderbolt"></i></ng-template>
+                </nz-card>
             </div>
             <div *nzSpaceItem>
                 <div *ngIf="isAdmin | async">

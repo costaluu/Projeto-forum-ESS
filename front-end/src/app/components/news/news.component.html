@@ -1,17 +1,74 @@
 <div class="news-grid-container">
-    <section class="news-header"><h2 nz-typography>All news</h2></section>
     <section class="news-content">
-        <nz-tabset [nzTabBarExtraContent]="extraTemplate">
-            <nz-tab *ngFor="let tab of tabs" [nzTitle]="'Tab ' + tab">Content of tab {{ tab }}</nz-tab>
-            <div class=""></div>
-        </nz-tabset>
+        <nz-card style="width: 100%; height: 100%; overflow-y: auto" [nzTitle]="titleNewsTemplate" [nzExtra]="extraTemplate">
+            <app-news-shower
+                [title]="'Teste1'"
+                [content]="
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
+                "
+                [views]="12"
+                [likes]="99"
+                [comments]="212"
+            ></app-news-shower>
+            <app-news-shower
+                [title]="'Teste2'"
+                [content]="
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
+                "
+                [views]="13"
+                [likes]="94"
+                [comments]="213"
+            ></app-news-shower>
+            <app-news-shower
+                [title]="'Teste3'"
+                [content]="
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
+                "
+                [views]="13"
+                [likes]="94"
+                [comments]="213"
+            ></app-news-shower>
+            <app-news-shower
+                [title]="'Teste4'"
+                [content]="
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
+                "
+                [views]="13"
+                [likes]="94"
+                [comments]="213"
+            ></app-news-shower>
+            <app-news-shower
+                [title]="'Teste5'"
+                [content]="
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
+                "
+                [views]="13"
+                [likes]="94"
+                [comments]="213"
+            ></app-news-shower>
+        </nz-card>
+        <ng-template #titleNewsTemplate>
+            <h1 nz-typography>All news</h1>
+        </ng-template>
         <ng-template #extraTemplate>
             <nz-space nzAlign="center">
+                <nz-input-group *nzSpaceItem [nzSuffix]="suffixIconSearch" [nzSize]="'large'">
+                    <input type="text" nz-input placeholder="Search..." [nzSize]="'large'" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <span nz-icon nzType="search"></span>
+                </ng-template>
+                <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
+                <nz-radio-group *nzSpaceItem [(ngModel)]="radioValue">
+                    <label nz-radio-button nzValue="A">Newest</label>
+                    <label nz-radio-button nzValue="B">Popular</label>
+                </nz-radio-group>
+                <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
                 <span *nzSpaceItem nz-typography><strong>News per page</strong></span>
-                <nz-select *nzSpaceItem ngModel="lucy">
-                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                <nz-select *nzSpaceItem [ngModel]="newsPerPage">
+                    <nz-option [nzValue]="5" nzLabel="5"></nz-option>
+                    <nz-option [nzValue]="10" nzLabel="10"></nz-option>
+                    <nz-option [nzValue]="15" nzLabel="15"></nz-option>
                 </nz-select>
             </nz-space>
         </ng-template>

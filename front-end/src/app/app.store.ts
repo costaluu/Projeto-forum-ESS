@@ -9,11 +9,11 @@ export interface AppState {
 }
 
 export const appInitialState: AppState = {
-    logged: false,
+    logged: true,
     user: {
-        id: '',
-        name: '',
-        type: 1,
+        id: '123',
+        name: 'Lucas',
+        type: 2,
     },
     newsCount: 0,
     usersCount: 0,

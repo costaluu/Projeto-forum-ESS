@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core'
 export class NewsComponent implements OnInit {
     constructor() {}
 
-    tabs = [1, 2, 3]
+    radioValue: string = 'B'
+    newsPerPage: number = 5
 
     ngOnInit(): void {}
 }

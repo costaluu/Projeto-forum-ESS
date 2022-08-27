@@ -11,6 +11,7 @@ import { AppState } from './app.store'
 })
 export class AppComponent implements OnInit {
     title = 'front-end'
+    showProfile: boolean = false
 
     logged: Observable<Boolean> = this.store.select('app').pipe(
         map((state) => {
@@ -34,5 +35,13 @@ export class AppComponent implements OnInit {
         } else {
             return true
         }
+    }
+
+    showProfileDrawer() {
+        this.showProfile = true
+    }
+
+    hideProfileDrawer() {
+        this.showProfile = false
     }
 }

@@ -1,7 +1,7 @@
 <nz-card class="base-card" nzTitle="News Management">
     <nz-space class="wfull" nzDirection="vertical">
         <div *nzSpaceItem>
-            <button nz-button nzType="primary" (click)="onCreateNews()">
+            <button nz-button nzType="primary" (click)="showModal()">
                 <i nz-icon nzType="plus-square"></i>
                 Create
             </button>
@@ -69,4 +69,49 @@
             </nz-collapse>
         </div>
     </nz-space>
+    <nz-modal
+        [(nzVisible)]="isModalVisible"
+        nzTitle="The first Modal"
+        (nzOnCancel)="hideModal()"
+        (nzOnOk)="onCreateNews()"
+        nzOkText="Create"
+        nzCancelText="Cancel"
+    >
+        <ng-container *nzModalContent class="wfull">
+            <nz-space class="wfull" nzDirection="vertical">
+                <span *nzSpaceItem>Title</span>
+                <input
+                    *nzSpaceItem
+                    nz-input
+                    [nzSize]="'large'"
+                    placeholder="Title"
+                    [(ngModel)]="creatingNewsInModal.title"
+                    [nzStatus]="statusInputTitleModal"
+                />
+                <span *nzSpaceItem>Content</span>
+                <textarea
+                    *nzSpaceItem
+                    nz-input
+                    [nzSize]="'large'"
+                    placeholder="Content"
+                    [nzAutosize]="{ minRows: 10, maxRows: 30 }"
+                    [(ngModel)]="creatingNewsInModal.markdownText"
+                    [nzStatus]="statusInputContentModal"
+                ></textarea>
+                <span *nzSpaceItem>Tags</span>
+                <nz-select
+                    *nzSpaceItem
+                    class="wfull"
+                    [nzMaxTagCount]="5"
+                    [nzMaxTagPlaceholder]="tagPlaceHolder"
+                    nzMode="multiple"
+                    nzPlaceHolder="Please select"
+                    [(ngModel)]="creatingNewsInModal.tags"
+                >
+                    <nz-option *ngFor="let tag of tagsOptions" [nzLabel]="tag" [nzValue]="tag"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
+            </nz-space>
+        </ng-container>
+    </nz-modal>
 </nz-card>

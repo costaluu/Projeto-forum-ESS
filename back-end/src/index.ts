@@ -3,6 +3,10 @@ import * as NewsController from './News/controller' // Controller responsável p
 import { HTTP_SUCCESS } from './types'
 import cors from 'cors'
 
+import Logger from '@ptkdev/logger'
+
+const log = new Logger()
+
 const app: Application = express()
 const port = 3000
 
@@ -17,12 +21,12 @@ app.get('/', (request: Request, response: Response) => {
     response.send(HTTP_SUCCESS)
 })
 
-app.get('/news', NewsController.getNews)
+app.get('/news/:id', NewsController.getNews)
 app.get('/newsall', NewsController.getAllNews)
 app.post('/news', NewsController.createNews)
 app.delete('/news', NewsController.deleteNews)
 app.put('/news', NewsController.editNews)
 
 app.listen(port, () => {
-    console.log('Backend listening on port 3000')
+    log.info('Backend listening on port 3000')
 })

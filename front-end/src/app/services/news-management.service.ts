@@ -23,6 +23,10 @@ export class NewsManagementService {
         return this.httpClient.put<ApiResponse>(this.baseUrl, news)
     }
 
+    get(id: string): Observable<ApiResponse> {
+        return this.httpClient.get<ApiResponse>(this.baseUrl + ('/' + id))
+    }
+
     getAll(): Observable<ApiResponse> {
         return this.httpClient.get<ApiResponse>(this.baseUrl + 'all')
     }

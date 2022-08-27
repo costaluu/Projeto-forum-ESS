@@ -3,6 +3,7 @@ import { ApiResponse, News } from 'src/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { nanoid } from 'nanoid'
 import { NewsManagementService } from 'src/app/services/news-management.service'
+import { NzStatus } from 'ng-zorro-antd/core/types'
 
 @Component({
     selector: 'app-news-management',
@@ -13,6 +14,17 @@ export class NewsManagementComponent implements OnInit {
     newsList: News[] = []
     newsListFiltered: News[] = []
 
+    isModalVisible: boolean = false
+
+    creatingNewsInModal: Pick<News, 'title' | 'markdownText' | 'tags'> = {
+        title: '',
+        markdownText: '',
+        tags: [],
+    }
+
+    statusInputTitleModal: NzStatus = ''
+    statusInputContentModal: NzStatus = ''
+
     tagsOptions: string[] = ['Rap', 'Nacional']
 
     filterText: string = ''
@@ -22,6 +34,52 @@ export class NewsManagementComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    validateModalInfo(): boolean {
+        this.statusInputContentModal = ''
+        this.statusInputTitleModal = ''
+
+        var result: boolean = true
+
+        if (this.creatingNewsInModal.markdownText == '') {
+            this.statusInputContentModal = 'error'
+            result = false
+        }
+        if (this.creatingNewsInModal.title == '') {
+            this.statusInputTitleModal = 'error'
+            result = false
+        }
+
+        return result
+    }
+
+    validateEditInfo(index: number): boolean {
+        var result: boolean = true
+
+        if (this.newsList[index].markdownText == '') {
+            result = false
+        }
+
+        if (this.newsList[index].title == '') {
+            result = false
+        }
+
+        return result
+    }
+
+    showModal() {
+        this.isModalVisible = true
+    }
+
+    hideModal() {
+        this.isModalVisible = false
+
+        this.creatingNewsInModal = {
+            title: '',
+            markdownText: '',
+            tags: [],
+        }
+    }
 
     findIndexFromFilteredList(id: string): number {
         let i: number = 0
@@ -62,6 +120,13 @@ export class NewsManagementComponent implements OnInit {
     }
 
     onCreateNews(): void {
+        var result: boolean = this.validateModalInfo()
+
+        if (result == false) {
+            this.message.create('error', `Please make sure that Title and Content are not empty!`)
+            return
+        }
+
         let currentDate = new Date()
 
         let date = currentDate.toLocaleDateString()
@@ -70,14 +135,14 @@ export class NewsManagementComponent implements OnInit {
         let temp: News = {
             id: nanoid(),
             authorId: '',
-            title: 'Change the title',
+            title: this.creatingNewsInModal.title,
             date: date + ' ' + hour.slice(0, -3),
-            markdownText: '',
+            markdownText: this.creatingNewsInModal.markdownText,
             edited: false,
             views: 0,
-            likes: 0,
+            likes: [],
             comments: [],
-            tags: [],
+            tags: this.creatingNewsInModal.tags,
         }
 
         this.newsManagementService.create(temp).subscribe((res: ApiResponse) => {
@@ -87,6 +152,8 @@ export class NewsManagementComponent implements OnInit {
 
                 this.clearFilter()
                 this.message.create('success', `New news created successfully!`)
+
+                this.hideModal()
             } else {
                 this.message.create('error', `Failed to create the news!`)
             }
@@ -95,6 +162,13 @@ export class NewsManagementComponent implements OnInit {
 
     onSaveNews(id: string, title: string, markdownText: string, tags: string[]): void {
         let find: number = this.findIndexFromFilteredList(id)
+
+        var result: boolean = this.validateEditInfo(find)
+
+        if (result == false) {
+            this.message.create('error', `Please make sure that Title and Content are not empty!`)
+            return
+        }
 
         let currentDate = new Date()
         let date = currentDate.toLocaleDateString()

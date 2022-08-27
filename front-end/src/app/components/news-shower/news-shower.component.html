@@ -1,0 +1,27 @@
+<div class="news-content-grid">
+    <section class="news-content-img">
+        <img nz-image width="180px" height="130px" nzSrc="https://jpimg.com.br/uploads/2022/07/design-sem-nome-69-750x432.png" alt="" />
+    </section>
+    <section class="news-content-content">
+        <nz-space nzDirection="vertical" class="news-text-container">
+            <h3 *nzSpaceItem nz-typography>{{ title }}</h3>
+            <span *nzSpaceItem nz-typography class="text-content">{{ content }}</span>
+        </nz-space>
+    </section>
+    <section class="news-content-views">
+        <app-news-shower-statistic [value]="views" [subtitle]="'views'"></app-news-shower-statistic>
+    </section>
+    <section class="news-content-likes">
+        <app-news-shower-statistic [value]="likes" [subtitle]="'likes'"></app-news-shower-statistic>
+    </section>
+    <section class="news-content-comments">
+        <app-news-shower-statistic [value]="comments" [subtitle]="'comments'"></app-news-shower-statistic>
+    </section>
+    <section class="news-content-tags">
+        <nz-space style="padding: 0.5rem">
+            <nz-tag *nzSpaceItem>Tag 1</nz-tag>
+            <nz-tag *nzSpaceItem>Tag 2</nz-tag>
+            <nz-tag *nzSpaceItem>Tag 3</nz-tag>
+        </nz-space>
+    </section>
+</div>
