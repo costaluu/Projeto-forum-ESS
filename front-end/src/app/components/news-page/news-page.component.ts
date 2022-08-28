@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router'
 export class NewsPageComponent implements OnInit {
     news: News = {
         id: '',
+        cover: '',
         authorId: '',
         title: '',
         date: '',
@@ -37,6 +38,7 @@ export class NewsPageComponent implements OnInit {
                 } else {
                     this.news = {
                         id: '',
+                        cover: '',
                         authorId: '',
                         title: '',
                         date: '',

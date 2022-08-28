@@ -38,6 +38,7 @@ export interface Like {
 export interface News {
     readonly id: string
     readonly authorId: string
+    cover: string
     title: string
     date: string
     markdownText: string

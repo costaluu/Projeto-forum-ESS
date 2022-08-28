@@ -1,11 +1,11 @@
-<nz-card class="base-card" nzTitle="News Management">
+<nz-card class="base-card" nzTitle="News Management" [nzExtra]="extraContentTemplate">
+    <ng-template #extraContentTemplate>
+        <button nz-button nzType="primary" [routerLink]="'create'" [nzSize]="'large'">
+            <i nz-icon nzType="plus-square"></i>
+            Create
+        </button>
+    </ng-template>
     <nz-space class="wfull" nzDirection="vertical">
-        <div *nzSpaceItem>
-            <button nz-button nzType="primary" (click)="showModal()">
-                <i nz-icon nzType="plus-square"></i>
-                Create
-            </button>
-        </div>
         <div *nzSpaceItem>
             <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
                 <input type="text" nz-input placeholder="Search by title, author..." [(ngModel)]="filterText" (input)="filterNews()" />
@@ -14,104 +14,46 @@
                 <button nz-button nzType="primary" nzSearch>Search</button>
             </ng-template>
         </div>
+        <nz-divider *nzSpaceItem></nz-divider>
         <div *nzSpaceItem>
-            <nz-collapse [nzExpandIconPosition]="'right'">
-                <nz-collapse-panel *ngFor="let news of newsListFiltered; index as i" [nzHeader]="news.title" [nzActive]="false" [nzExtra]="extraTpl">
-                    <nz-space class="wfull" nzDirection="vertical">
-                        <span *nzSpaceItem>Title</span>
-                        <input *nzSpaceItem nz-input [nzSize]="'large'" placeholder="Title" [(ngModel)]="news.title" />
-                        <span *nzSpaceItem>Content</span>
-                        <textarea
-                            *nzSpaceItem
-                            nz-input
-                            [nzSize]="'large'"
-                            placeholder="Content"
-                            [nzAutosize]="{ minRows: 10, maxRows: 30 }"
-                            [(ngModel)]="news.markdownText"
-                        ></textarea>
-                        <span *nzSpaceItem>Tags</span>
-                        <nz-select
-                            *nzSpaceItem
-                            class="wfull"
-                            [nzMaxTagCount]="5"
-                            [nzMaxTagPlaceholder]="tagPlaceHolder"
-                            nzMode="multiple"
-                            nzPlaceHolder="Please select"
-                            [(ngModel)]="news.tags"
-                        >
-                            <nz-option *ngFor="let tag of tagsOptions" [nzLabel]="tag" [nzValue]="tag"></nz-option>
-                        </nz-select>
-                        <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
-                        <div *nzSpaceItem style="float: right">
+            <nz-list nzItemLayout="vertical">
+                <nz-list-item *ngFor="let news of newsListFiltered; index as i">
+                    <nz-list-item-extra>
+                        <img nz-image width="180px" height="130px" [nzSrc]="news.cover" [nzFallback]="imageFall" />
+                    </nz-list-item-extra>
+                    <nz-list-item-meta>
+                        <nz-list-item-meta-avatar
+                            [nzSrc]="'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'"
+                        ></nz-list-item-meta-avatar>
+                        <nz-list-item-meta-title> {{ news.title }} </nz-list-item-meta-title>
+                        <nz-list-item-meta-description> {{ news.edited ? 'Edited' : 'Created' }} at {{ news.date }} </nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                    <nz-collapse>
+                        <nz-collapse-panel nzHeader="News content" [nzExtra]="collapseTagsTemplate">
+                            <markdown ngPreserveWhitespaces> {{ news.markdownText }} </markdown>
+                        </nz-collapse-panel>
+                        <ng-template #collapseTagsTemplate>
                             <nz-space>
-                                <button *nzSpaceItem nz-button nzType="primary" (click)="onDeleteNews(news.id)" nzDanger>
-                                    <i nz-icon nzType="delete"></i>
-                                    Delete
-                                </button>
-                                <button
-                                    *nzSpaceItem
-                                    nz-button
-                                    nzType="primary"
-                                    (click)="onSaveNews(news.id, news.title, news.markdownText, news.tags)"
-                                >
-                                    <i nz-icon nzType="check"></i>
-                                    Save
-                                </button>
+                                <nz-tag *ngFor="let tag of news.tags">{{ tag }}</nz-tag>
                             </nz-space>
-                        </div>
-                    </nz-space>
-                    <ng-template #extraTpl>
-                        <span nz-typography>
-                            <strong> {{ news.edited ? 'Edited' : 'Created' }} at {{ news.date }} </strong>
-                        </span>
-                    </ng-template>
-                </nz-collapse-panel>
-            </nz-collapse>
+                        </ng-template>
+                    </nz-collapse>
+                    <ul nz-list-item-actions>
+                        <nz-list-item-action>
+                            <button nz-button nzType="primary" [routerLink]="'edit/' + news.id">
+                                <span nz-icon nzType="edit"></span>
+                                Edit
+                            </button>
+                        </nz-list-item-action>
+                        <nz-list-item-action>
+                            <button nz-button nzType="primary" nzDanger (click)="onDeleteNews(news.id)">
+                                <i nz-icon nzType="delete"></i>
+                                Delete
+                            </button>
+                        </nz-list-item-action>
+                    </ul>
+                </nz-list-item>
+            </nz-list>
         </div>
     </nz-space>
-    <nz-modal
-        [(nzVisible)]="isModalVisible"
-        nzTitle="The first Modal"
-        (nzOnCancel)="hideModal()"
-        (nzOnOk)="onCreateNews()"
-        nzOkText="Create"
-        nzCancelText="Cancel"
-    >
-        <ng-container *nzModalContent class="wfull">
-            <nz-space class="wfull" nzDirection="vertical">
-                <span *nzSpaceItem>Title</span>
-                <input
-                    *nzSpaceItem
-                    nz-input
-                    [nzSize]="'large'"
-                    placeholder="Title"
-                    [(ngModel)]="creatingNewsInModal.title"
-                    [nzStatus]="statusInputTitleModal"
-                />
-                <span *nzSpaceItem>Content</span>
-                <textarea
-                    *nzSpaceItem
-                    nz-input
-                    [nzSize]="'large'"
-                    placeholder="Content"
-                    [nzAutosize]="{ minRows: 10, maxRows: 30 }"
-                    [(ngModel)]="creatingNewsInModal.markdownText"
-                    [nzStatus]="statusInputContentModal"
-                ></textarea>
-                <span *nzSpaceItem>Tags</span>
-                <nz-select
-                    *nzSpaceItem
-                    class="wfull"
-                    [nzMaxTagCount]="5"
-                    [nzMaxTagPlaceholder]="tagPlaceHolder"
-                    nzMode="multiple"
-                    nzPlaceHolder="Please select"
-                    [(ngModel)]="creatingNewsInModal.tags"
-                >
-                    <nz-option *ngFor="let tag of tagsOptions" [nzLabel]="tag" [nzValue]="tag"></nz-option>
-                </nz-select>
-                <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
-            </nz-space>
-        </ng-container>
-    </nz-modal>
 </nz-card>

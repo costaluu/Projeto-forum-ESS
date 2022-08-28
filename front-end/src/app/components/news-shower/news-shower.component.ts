@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { imageFallBack } from 'src/util'
 
 @Component({
     selector: 'app-news-shower',
@@ -6,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core'
     styleUrls: ['./news-shower.component.css'],
 })
 export class NewsShowerComponent implements OnInit {
+    imageFall: string = imageFallBack
+
     constructor() {}
 
     @Input() title: string = ''

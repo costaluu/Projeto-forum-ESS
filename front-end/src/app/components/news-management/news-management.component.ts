@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiResponse, News } from 'src/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
-import { nanoid } from 'nanoid'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { NzStatus } from 'ng-zorro-antd/core/types'
+import { imageFallBack } from 'src/util'
 
 @Component({
     selector: 'app-news-management',
@@ -11,6 +11,7 @@ import { NzStatus } from 'ng-zorro-antd/core/types'
     styleUrls: ['./news-management.component.css'],
 })
 export class NewsManagementComponent implements OnInit {
+    imageFall: string = imageFallBack
     newsList: News[] = []
     newsListFiltered: News[] = []
 
@@ -67,20 +68,6 @@ export class NewsManagementComponent implements OnInit {
         return result
     }
 
-    showModal() {
-        this.isModalVisible = true
-    }
-
-    hideModal() {
-        this.isModalVisible = false
-
-        this.creatingNewsInModal = {
-            title: '',
-            markdownText: '',
-            tags: [],
-        }
-    }
-
     findIndexFromFilteredList(id: string): number {
         let i: number = 0
 
@@ -117,77 +104,6 @@ export class NewsManagementComponent implements OnInit {
     private clearFilter() {
         this.filterText = ''
         this.newsListFiltered = this.newsList
-    }
-
-    onCreateNews(): void {
-        var result: boolean = this.validateModalInfo()
-
-        if (result == false) {
-            this.message.create('error', `Please make sure that Title and Content are not empty!`)
-            return
-        }
-
-        let currentDate = new Date()
-
-        let date = currentDate.toLocaleDateString()
-        let hour = currentDate.toLocaleTimeString()
-
-        let temp: News = {
-            id: nanoid(),
-            authorId: '',
-            title: this.creatingNewsInModal.title,
-            date: date + ' ' + hour.slice(0, -3),
-            markdownText: this.creatingNewsInModal.markdownText,
-            edited: false,
-            views: 0,
-            likes: [],
-            comments: [],
-            tags: this.creatingNewsInModal.tags,
-        }
-
-        this.newsManagementService.create(temp).subscribe((res: ApiResponse) => {
-            if (res.status == 200) {
-                this.newsList.unshift(temp)
-
-                this.clearFilter()
-                this.message.create('success', `New news created successfully!`)
-
-                this.hideModal()
-            } else {
-                this.message.create('error', `Failed to create the news!`)
-            }
-        })
-    }
-
-    onSaveNews(id: string, title: string, markdownText: string, tags: string[]): void {
-        let find: number = this.findIndexFromFilteredList(id)
-
-        var result: boolean = this.validateEditInfo(find)
-
-        if (result == false) {
-            this.message.create('error', `Please make sure that Title and Content are not empty!`)
-            return
-        }
-
-        let currentDate = new Date()
-        let date = currentDate.toLocaleDateString()
-        let hour = currentDate.toLocaleTimeString()
-
-        this.newsList[find].title = title
-        this.newsList[find].date = date + ' ' + hour.slice(0, -3)
-        this.newsList[find].markdownText = markdownText
-        this.newsList[find].edited = true
-        this.newsList[find].tags = tags
-
-        this.newsManagementService.edit(this.newsList[find]).subscribe((res: ApiResponse) => {
-            console.log(res)
-            if (res.status == 200) {
-                this.clearFilter()
-                this.message.create('success', `Saved!`)
-            } else {
-                this.message.create('error', `Failed to save the news!`)
-            }
-        })
     }
 
     onDeleteNews(id: string): void {

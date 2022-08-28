@@ -1,5 +1,8 @@
 <nz-space nzDirection="vertical" class="news-page-space">
-    <nz-card *nzSpaceItem class="news-page-container">
+    <nz-card *nzSpaceItem class="news-page-container" [nzCover]="coverTemplate">
+        <ng-template #coverTemplate>
+            <img height="30%" src="https://jpimg.com.br/uploads/2022/07/design-sem-nome-69-750x432.png" />
+        </ng-template>
         <nz-card-meta [nzTitle]="titleTemplate" nzDescription="date" [nzAvatar]="avatarTemplate"></nz-card-meta>
         <nz-divider></nz-divider>
         <markdown ngPreserveWhitespaces> # mardown-content </markdown>
