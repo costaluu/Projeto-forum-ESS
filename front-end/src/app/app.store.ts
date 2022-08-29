@@ -21,6 +21,9 @@ export const appInitialState: AppState = {
 
 export const changeUserLoggedStatus = createAction('[APP] Change login status of the user', props<Boolean>())
 export const changeUserInfo = createAction('[APP] Change user info', props<{ payload: User }>())
+export const incrementNews = createAction('[APP] Add 1 news count')
+export const decrementNews = createAction('[APP] Remove 1 news count')
+export const setNews = createAction('[APP] Set news count value', props<Number>())
 
 export const appReducer = createReducer(
     appInitialState,
@@ -36,6 +39,22 @@ export const appReducer = createReducer(
         currentState = {
             ...currentState,
             user: actions.payload,
+        }
+
+        return currentState
+    }),
+    on(incrementNews, (currentState) => {
+        currentState = {
+            ...currentState,
+            newsCount: currentState.newsCount + 1,
+        }
+
+        return currentState
+    }),
+    on(setNews, (currentState, actions) => {
+        currentState = {
+            ...currentState,
+            newsCount: actions.valueOf(),
         }
 
         return currentState

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { Store } from '@ngrx/store'
 import { nanoid } from 'nanoid'
 import { NzStatus } from 'ng-zorro-antd/core/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
+import { AppState, incrementNews } from 'src/app/app.store'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { ApiResponse, News } from 'src/types'
 import { defaultTags, imageFallBack } from 'src/util'
@@ -33,7 +35,12 @@ export class NewsCreateComponent implements OnInit {
         tags: [],
     }
 
-    constructor(private newsManagementService: NewsManagementService, private message: NzMessageService, private router: Router) {}
+    constructor(
+        private newsManagementService: NewsManagementService,
+        private message: NzMessageService,
+        private router: Router,
+        private store: Store<{ app: AppState }>
+    ) {}
 
     ngOnInit(): void {}
 
@@ -78,6 +85,7 @@ export class NewsCreateComponent implements OnInit {
         this.newsManagementService.create(temp).subscribe((res: ApiResponse) => {
             if (res.status == 200) {
                 this.message.create('success', `New news created successfully!`)
+                this.store.dispatch(incrementNews())
                 this.router.navigateByUrl('/home/news/' + temp.id)
             } else {
                 this.message.create('error', `Failed to create the news!`)

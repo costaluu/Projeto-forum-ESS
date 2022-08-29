@@ -1,79 +1,47 @@
 <div class="news-grid-container">
     <section class="news-content">
         <nz-card style="width: 100%; height: 100%; overflow-y: auto" [nzTitle]="titleNewsTemplate" [nzExtra]="extraTemplate">
-            <app-news-shower
-                [title]="'Teste1'"
-                [content]="
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
-                "
-                [views]="12"
-                [likes]="99"
-                [comments]="212"
-            ></app-news-shower>
-            <app-news-shower
-                [title]="'Teste2'"
-                [content]="
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
-                "
-                [views]="13"
-                [likes]="94"
-                [comments]="213"
-            ></app-news-shower>
-            <app-news-shower
-                [title]="'Teste3'"
-                [content]="
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
-                "
-                [views]="13"
-                [likes]="94"
-                [comments]="213"
-            ></app-news-shower>
-            <app-news-shower
-                [title]="'Teste4'"
-                [content]="
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
-                "
-                [views]="13"
-                [likes]="94"
-                [comments]="213"
-            ></app-news-shower>
-            <app-news-shower
-                [title]="'Teste5'"
-                [content]="
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960'
-                "
-                [views]="13"
-                [likes]="94"
-                [comments]="213"
-            ></app-news-shower>
+            <nz-spin nzTip="Loading..." [nzSpinning]="loading">
+                <div *ngFor="let news of newsListFiltered" nz-card-grid [ngStyle]="gridStyle">
+                    <app-news-shower
+                        [id]="news.id"
+                        [title]="news.title"
+                        [content]="news.markdownText"
+                        [views]="news.views"
+                        [likes]="news.likes.length"
+                        [comments]="news.comments.length"
+                        [cover]="news.cover"
+                    ></app-news-shower>
+                </div>
+            </nz-spin>
         </nz-card>
         <ng-template #titleNewsTemplate>
-            <h1 nz-typography>All news</h1>
+            <h3 nz-typography>All news</h3>
         </ng-template>
         <ng-template #extraTemplate>
             <nz-space nzAlign="center">
+                <nz-radio-group *nzSpaceItem [(ngModel)]="radioValue">
+                    <label nz-radio-button nzValue="P">Popular</label>
+                    <label nz-radio-button nzValue="N">Newest</label>
+                </nz-radio-group>
+                <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
                 <nz-input-group *nzSpaceItem [nzSuffix]="suffixIconSearch" [nzSize]="'large'">
-                    <input type="text" nz-input placeholder="Search..." [nzSize]="'large'" />
+                    <input type="text" nz-input placeholder="Search..." [nzSize]="'large'" [(ngModel)]="filterText" (input)="filterNews()" />
                 </nz-input-group>
                 <ng-template #suffixIconSearch>
                     <span nz-icon nzType="search"></span>
                 </ng-template>
-                <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
-                <nz-radio-group *nzSpaceItem [(ngModel)]="radioValue">
-                    <label nz-radio-button nzValue="A">Newest</label>
-                    <label nz-radio-button nzValue="B">Popular</label>
-                </nz-radio-group>
-                <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
-                <span *nzSpaceItem nz-typography><strong>News per page</strong></span>
-                <nz-select *nzSpaceItem [ngModel]="newsPerPage">
-                    <nz-option [nzValue]="5" nzLabel="5"></nz-option>
-                    <nz-option [nzValue]="10" nzLabel="10"></nz-option>
-                    <nz-option [nzValue]="15" nzLabel="15"></nz-option>
-                </nz-select>
             </nz-space>
         </ng-template>
     </section>
     <section class="news-footer">
-        <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+        <nz-pagination
+            [nzPageIndex]="pageIndex"
+            [nzTotal]="totalNews"
+            nzShowSizeChanger
+            [nzPageSize]="pageSize"
+            (nzPageIndexChange)="updatePageIndex($event)"
+            (nzPageSizeChange)="updatePageSize($event)"
+        ></nz-pagination>
     </section>
 </div>

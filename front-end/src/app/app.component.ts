@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { map, Observable } from 'rxjs'
-import { User } from 'src/types'
-import { AppState } from './app.store'
+import { ApiResponse, User } from 'src/types'
+import { AppState, setNews } from './app.store'
+import { NewsManagementService } from './services/news-management.service'
 
 @Component({
     selector: 'app-root',
@@ -25,17 +26,17 @@ export class AppComponent implements OnInit {
         })
     )
 
-    constructor(private store: Store<{ app: AppState }>) {}
+    constructor(private store: Store<{ app: AppState }>, private newsManagementService: NewsManagementService) {
+        this.newsManagementService.getNewsSize().subscribe((res: ApiResponse) => {
+            if (res.status == 200) {
+                this.store.dispatch(setNews(res.result as number))
+            } else {
+                this.store.dispatch(setNews(0))
+            }
+        })
+    }
 
     ngOnInit() {}
-
-    isUserLogged(): Boolean {
-        if (localStorage.getItem('userInfo') == null) {
-            return false
-        } else {
-            return true
-        }
-    }
 
     showProfileDrawer() {
         this.showProfile = true

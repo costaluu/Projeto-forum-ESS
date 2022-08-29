@@ -1,31 +1,35 @@
 <nz-space nzDirection="vertical" class="news-page-space">
     <nz-card *nzSpaceItem class="news-page-container" [nzCover]="coverTemplate">
         <ng-template #coverTemplate>
-            <img height="30%" src="https://jpimg.com.br/uploads/2022/07/design-sem-nome-69-750x432.png" />
+            <img nz-image [nzSrc]="news.cover" [nzFallback]="imgFall" />
         </ng-template>
-        <nz-card-meta [nzTitle]="titleTemplate" nzDescription="date" [nzAvatar]="avatarTemplate"></nz-card-meta>
+        <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="dateTemplate" [nzAvatar]="avatarTemplate"></nz-card-meta>
         <nz-divider></nz-divider>
-        <markdown ngPreserveWhitespaces> # mardown-content </markdown>
+        <markdown ngPreserveWhitespaces [data]="news.markdownText"></markdown>
         <nz-divider></nz-divider>
         <nz-space nzAlign="center">
             <nz-space *nzSpaceItem nzAlign="center" style="cursor: pointer">
                 <span *nzSpaceItem nz-icon nzType="like"></span>
-                <span *nzSpaceItem> 12 Likes </span>
+                <span *nzSpaceItem> {{ news.likes.length }} Likes </span>
             </nz-space>
             <nz-divider *nzSpaceItem nzDirection="vertical"></nz-divider>
             <nz-space *nzSpaceItem nzAlign="center" style="cursor: pointer">
                 <span *nzSpaceItem nz-icon nzType="eye"></span>
-                <span *nzSpaceItem> 120 Views </span>
+                <span *nzSpaceItem> {{ news.views }} Views </span>
             </nz-space>
             <nz-divider *nzSpaceItem nzDirection="vertical"></nz-divider>
             <nz-space *nzSpaceItem nzAlign="center" style="cursor: pointer">
                 <span *nzSpaceItem nz-icon nzType="comment"></span>
-                <span *nzSpaceItem> 3 Comments </span>
+                <span *nzSpaceItem> {{ news.comments.length }} Comments </span>
             </nz-space>
         </nz-space>
 
         <ng-template #titleTemplate>
-            <span>Title</span>
+            <span>{{ news.title }}</span>
+        </ng-template>
+
+        <ng-template #dateTemplate>
+            <span>{{ news.edited ? 'Edited' : 'Created' }} at {{ news.date }}</span>
         </ng-template>
 
         <ng-template #avatarTemplate>
@@ -55,7 +59,6 @@
             ></nz-avatar>
             <nz-comment-content>
                 <markdown ngPreserveWhitespaces> Porra pivete </markdown>
-                <nz-divider></nz-divider>
                 <nz-space nzAlign="center">
                     <nz-space *nzSpaceItem nzAlign="center" style="cursor: pointer">
                         <span *nzSpaceItem nz-icon nzType="like"></span>

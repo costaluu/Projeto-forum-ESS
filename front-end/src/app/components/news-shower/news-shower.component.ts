@@ -11,6 +11,7 @@ export class NewsShowerComponent implements OnInit {
 
     constructor() {}
 
+    @Input() id: string = ''
     @Input() title: string = ''
     @Input() content: string = ''
 
@@ -18,6 +19,8 @@ export class NewsShowerComponent implements OnInit {
     @Input() comments: number = 0
     @Input() likes: number = 0
     @Input() views: number = 0
+    @Input() cover: string = ''
+    @Input() tags: string[] = []
 
     ngOnInit(): void {}
 }

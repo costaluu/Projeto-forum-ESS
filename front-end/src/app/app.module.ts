@@ -39,6 +39,7 @@ import { NzListModule } from 'ng-zorro-antd/list'
 import { MarkdownModule } from 'ngx-markdown'
 import { NzCommentModule } from 'ng-zorro-antd/comment'
 import { NzEmptyModule } from 'ng-zorro-antd/empty'
+import { NzSpinModule } from 'ng-zorro-antd/spin'
 import {
     UserOutline,
     LogoutOutline,
@@ -149,6 +150,7 @@ const icons: IconDefinition[] = [
         MarkdownModule.forRoot(),
         NzCommentModule,
         NzEmptyModule,
+        NzSpinModule,
     ],
     providers: [{ provide: NZ_I18N, useValue: en_US }],
     bootstrap: [AppComponent],

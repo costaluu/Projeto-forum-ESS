@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { ApiResponse, News } from 'src/types'
 import { defaultTags } from 'src/util'
+import { imageFallBack } from 'src/util'
 
 @Component({
     selector: 'app-news-edit',
@@ -12,6 +13,8 @@ import { defaultTags } from 'src/util'
     styleUrls: ['./news-edit.component.css'],
 })
 export class NewsEditComponent implements OnInit {
+    imgFall: string = imageFallBack
+
     avaliableTags: string[] = defaultTags
 
     statusInputTitle: 'secondary' | 'warning' | 'danger' | 'success' | undefined = undefined

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { News, ApiResponse } from 'src/types'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { ActivatedRoute } from '@angular/router'
+import { imageFallBack } from '../../../util'
 
 @Component({
     selector: 'app-news-page',
@@ -9,6 +10,8 @@ import { ActivatedRoute } from '@angular/router'
     styleUrls: ['./news-page.component.css'],
 })
 export class NewsPageComponent implements OnInit {
+    imgFall: string = imageFallBack
+
     news: News = {
         id: '',
         cover: '',

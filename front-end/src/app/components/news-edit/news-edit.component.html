@@ -6,7 +6,7 @@
             </nz-input-group>
         </ng-template>
         <ng-template #coverTemplate>
-            <img height="30%" src="https://jpimg.com.br/uploads/2022/07/design-sem-nome-69-750x432.png" />
+            <img nz-image [nzSrc]="news.cover" [nzFallback]="imgFall" />
         </ng-template>
         <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="dateTemplate" [nzAvatar]="avatarTemplate"></nz-card-meta>
         <nz-divider></nz-divider>

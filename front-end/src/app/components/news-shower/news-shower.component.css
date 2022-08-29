@@ -15,13 +15,11 @@ section.news-content-img {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 section.news-content-content {
     grid-area: content;
     background: purple;
-    cursor: pointer;
 }
 
 section.news-content-views {
@@ -44,7 +42,6 @@ section.news-content-tags {
     background: lightcoral;
     display: flex;
     align-items: center;
-    cursor: pointer;
 }
 
 .news-text-container {

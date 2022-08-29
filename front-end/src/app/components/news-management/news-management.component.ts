@@ -3,6 +3,8 @@ import { ApiResponse, News } from 'src/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { imageFallBack } from 'src/util'
+import { Store } from '@ngrx/store'
+import { AppState, decrementNews } from 'src/app/app.store'
 
 @Component({
     selector: 'app-news-management',
@@ -22,7 +24,7 @@ export class NewsManagementComponent implements OnInit {
 
     filterText: string = ''
 
-    constructor(private message: NzMessageService, private newsManagementService: NewsManagementService) {
+    constructor(private message: NzMessageService, private newsManagementService: NewsManagementService, private store: Store<{ app: AppState }>) {
         this.getNewsPage()
     }
 
@@ -115,6 +117,7 @@ export class NewsManagementComponent implements OnInit {
                 this.newsList.splice(find, 1)
                 this.clearFilter()
                 this.totalNews -= 1
+                this.store.dispatch(decrementNews())
                 this.message.create('success', `News deleted successfully!`)
             } else {
                 this.message.create('error', `Failed to create the news!`)
