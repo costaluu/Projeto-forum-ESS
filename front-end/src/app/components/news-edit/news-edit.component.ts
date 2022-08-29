@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { NzStatus } from 'ng-zorro-antd/core/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NewsManagementService } from 'src/app/services/news-management.service'
-import { ApiResponse, News } from 'src/types'
+import { ApiResponse, News } from '../../../../../common/types'
 import { defaultTags } from 'src/util'
 import { imageFallBack } from 'src/util'
 

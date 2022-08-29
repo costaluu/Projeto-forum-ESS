@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { map, Observable } from 'rxjs'
-import { ApiResponse, User } from 'src/types'
+import { ApiResponse, User } from '../../../common/types'
 import { AppState, setNews } from './app.store'
 import { NewsManagementService } from './services/news-management.service'
 

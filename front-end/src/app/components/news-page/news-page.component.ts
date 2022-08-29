@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { News, ApiResponse } from 'src/types'
+import { News, ApiResponse } from '../../../../../common/types'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { ActivatedRoute } from '@angular/router'
 import { imageFallBack } from '../../../util'

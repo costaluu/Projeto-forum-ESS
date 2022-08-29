@@ -1,4 +1,4 @@
-import { News } from '../types'
+import { News } from '../../../common/types'
 import { readFileSync, promises } from 'fs'
 import Path from 'path'
 

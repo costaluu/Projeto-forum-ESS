@@ -1,4 +1,4 @@
-import { News } from 'src/types'
+import { News } from '../../../common/types'
 import { validator } from './controller'
 import NewsDB from './news'
 

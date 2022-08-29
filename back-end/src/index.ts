@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express'
 import * as NewsController from './News/controller' // Controller responsável pelas requisições http
-import { HTTP_SUCCESS } from './types'
+import { HTTP_SUCCESS } from '../../common/types'
 import cors from 'cors'
 
 import Logger from '@ptkdev/logger'

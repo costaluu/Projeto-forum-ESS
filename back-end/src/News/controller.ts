@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import NewsDB from './news'
-import { HTTP_SUCCESS, HTTP_BAD_REQUEST, HTTP_NOT_FOUND, HTTP_ERROR, News, ApiResponse } from '../types'
+import { HTTP_SUCCESS, HTTP_BAD_REQUEST, HTTP_NOT_FOUND, HTTP_ERROR, News, ApiResponse } from '../../../common/types'
 import Logger from '@ptkdev/logger'
 
 const log = new Logger()

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { AppState, changeUserInfo, changeUserLoggedStatus } from 'src/app/app.store'
-import { User } from 'src/types'
+import { User } from '../../../../../common/types'
 
 @Component({
     selector: 'app-login',

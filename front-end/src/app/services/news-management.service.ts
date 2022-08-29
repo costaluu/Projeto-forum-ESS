@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { ApiResponse, News } from 'src/types'
+import { ApiResponse, News } from '../../../../common/types'
 
 @Injectable({
     providedIn: 'root',

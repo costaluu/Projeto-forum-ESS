@@ -6,7 +6,7 @@ import { NzStatus } from 'ng-zorro-antd/core/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { AppState, incrementNews } from 'src/app/app.store'
 import { NewsManagementService } from 'src/app/services/news-management.service'
-import { ApiResponse, News } from 'src/types'
+import { ApiResponse, News } from '../../../../../common/types'
 import { defaultTags, imageFallBack } from 'src/util'
 
 @Component({

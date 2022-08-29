@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit } from '@angular/core'
-import { ApiResponse, News } from 'src/types'
+import { Component, OnInit } from '@angular/core'
+import { ApiResponse, News } from '../../../../../common/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { imageFallBack } from 'src/util'

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { AppState, setNews } from '../../app.store'
 import { map, Observable } from 'rxjs'
 import { NewsManagementService } from 'src/app/services/news-management.service'
-import { ApiResponse } from 'src/types'
+import { ApiResponse } from '../../../../../common/types'
 
 @Component({
     selector: 'app-home',

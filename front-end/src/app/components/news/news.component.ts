@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NewsManagementService } from 'src/app/services/news-management.service'
-import { ApiResponse, News } from 'src/types'
+import { ApiResponse, News } from '../../../../../common/types'
 
 @Component({
     selector: 'app-news',

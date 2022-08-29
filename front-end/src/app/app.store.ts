@@ -1,5 +1,5 @@
 import { createAction, createReducer, on, props } from '@ngrx/store'
-import { User } from 'src/types'
+import { User } from '../../../common/types'
 
 export interface AppState {
     logged: boolean
