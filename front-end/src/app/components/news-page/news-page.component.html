@@ -41,10 +41,17 @@
         <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
         <nz-comment-content>
             <nz-form-item>
-                <textarea [(ngModel)]="commentContent" nz-input rows="4"></textarea>
+                <nz-tabset nzType="card" class="news-page-space">
+                    <nz-tab [nzTitle]="'Markdown'">
+                        <textarea [(ngModel)]="commentContent" nz-input rows="4"></textarea>
+                    </nz-tab>
+                    <nz-tab [nzTitle]="'Preview'">
+                        <markdown ngPreserveWhitespaces [data]="commentContent"></markdown>
+                    </nz-tab>
+                </nz-tabset>
             </nz-form-item>
             <nz-form-item>
-                <button nz-button nzType="primary" [disabled]="!commentContent">Add Comment</button>
+                <button nz-button nzType="primary" [disabled]="commentContent == '' || (isAdmin | async)">Add Comment</button>
             </nz-form-item>
         </nz-comment-content>
     </nz-comment>

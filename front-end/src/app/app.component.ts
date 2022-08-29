@@ -29,9 +29,9 @@ export class AppComponent implements OnInit {
     constructor(private store: Store<{ app: AppState }>, private newsManagementService: NewsManagementService) {
         this.newsManagementService.getNewsSize().subscribe((res: ApiResponse) => {
             if (res.status == 200) {
-                this.store.dispatch(setNews(res.result as number))
+                this.store.dispatch(setNews({ payload: res.result as number }))
             } else {
-                this.store.dispatch(setNews(0))
+                this.store.dispatch(setNews({ payload: 0 }))
             }
         })
     }

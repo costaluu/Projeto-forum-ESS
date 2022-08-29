@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { AppState } from '../../app.store'
+import { AppState, setNews } from '../../app.store'
 import { map, Observable } from 'rxjs'
-import { NzStatisticValueType } from 'ng-zorro-antd/statistic/typings'
+import { NewsManagementService } from 'src/app/services/news-management.service'
+import { ApiResponse } from 'src/types'
 
 @Component({
     selector: 'app-home',
@@ -10,9 +11,9 @@ import { NzStatisticValueType } from 'ng-zorro-antd/statistic/typings'
     styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-    newsCount: Observable<NzStatisticValueType | undefined> = this.store.select('app').pipe(
-        map((state) => {
-            return state.newsCount
+    newsCount: Observable<number> = this.store.select('app').pipe(
+        map((state: AppState) => {
+            return state.newsCount as number
         })
     )
 
@@ -22,7 +23,15 @@ export class HomeComponent implements OnInit {
         })
     )
 
-    constructor(private store: Store<{ app: AppState }>) {}
+    constructor(private store: Store<{ app: AppState }>, private newsManagementService: NewsManagementService) {
+        this.newsManagementService.getNewsSize().subscribe((res: ApiResponse) => {
+            if (res.status == 200) {
+                this.store.dispatch(setNews({ payload: res.result as number }))
+            } else {
+                this.store.dispatch(setNews({ payload: 0 }))
+            }
+        })
+    }
 
     ngOnInit(): void {}
 }

@@ -3,6 +3,9 @@ import { News, ApiResponse } from 'src/types'
 import { NewsManagementService } from 'src/app/services/news-management.service'
 import { ActivatedRoute } from '@angular/router'
 import { imageFallBack } from '../../../util'
+import { map, Observable } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { AppState } from 'src/app/app.store'
 
 @Component({
     selector: 'app-news-page',
@@ -31,7 +34,13 @@ export class NewsPageComponent implements OnInit {
 
     commentContent: string = ''
 
-    constructor(private newsManagementService: NewsManagementService, private route: ActivatedRoute) {
+    isAdmin: Observable<boolean> = this.store.select('app').pipe(
+        map((state: AppState) => {
+            return (state.user.type == 2) as boolean
+        })
+    )
+
+    constructor(private newsManagementService: NewsManagementService, private route: ActivatedRoute, private store: Store<{ app: AppState }>) {
         const id: string | null = this.route.snapshot.paramMap.get('id')
 
         if (id != null) {
