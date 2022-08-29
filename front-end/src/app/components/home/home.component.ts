@@ -10,7 +10,7 @@ import { NzStatisticValueType } from 'ng-zorro-antd/statistic/typings'
     styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-    newsCount: Observable<NzStatisticValueType> = this.store.select('app').pipe(
+    newsCount: Observable<NzStatisticValueType | undefined> = this.store.select('app').pipe(
         map((state) => {
             return state.newsCount
         })
