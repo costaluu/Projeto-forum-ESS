@@ -21,6 +21,10 @@ class NewsDB {
         }
     }
 
+    getSize(): number {
+        return this.db.length
+    }
+
     getNews(id: string): News | undefined {
         return this.db.find((news) => news.id == id)
     }

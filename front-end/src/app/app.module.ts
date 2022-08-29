@@ -38,6 +38,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer'
 import { NzListModule } from 'ng-zorro-antd/list'
 import { MarkdownModule } from 'ngx-markdown'
 import { NzCommentModule } from 'ng-zorro-antd/comment'
+import { NzEmptyModule } from 'ng-zorro-antd/empty'
 import {
     UserOutline,
     LogoutOutline,
@@ -68,6 +69,12 @@ import { NewsShowerStatisticComponent } from './components/news-shower-statistic
 import { NewsPageComponent } from './components/news-page/news-page.component'
 import { NewsEditComponent } from './components/news-edit/news-edit.component'
 import { NewsCreateComponent } from './components/news-create/news-create.component'
+
+import { registerLocaleData } from '@angular/common'
+import en from '@angular/common/locales/en'
+registerLocaleData(en)
+
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n'
 
 const icons: IconDefinition[] = [
     UserOutline,
@@ -141,8 +148,9 @@ const icons: IconDefinition[] = [
         NzListModule,
         MarkdownModule.forRoot(),
         NzCommentModule,
+        NzEmptyModule,
     ],
-    providers: [],
+    providers: [{ provide: NZ_I18N, useValue: en_US }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

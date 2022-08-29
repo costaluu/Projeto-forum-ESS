@@ -24,10 +24,18 @@ export class NewsManagementService {
     }
 
     get(id: string): Observable<ApiResponse> {
-        return this.httpClient.get<ApiResponse>(this.baseUrl + ('/' + id))
+        return this.httpClient.get<ApiResponse>(this.baseUrl + `/${id}`)
     }
 
     getAll(): Observable<ApiResponse> {
         return this.httpClient.get<ApiResponse>(this.baseUrl + 'all')
+    }
+
+    getPage(pageId: number, newsPerPage: number): Observable<ApiResponse> {
+        return this.httpClient.get<ApiResponse>(this.baseUrl + `page/${pageId}/${newsPerPage}`)
+    }
+
+    getNewsSize(): Observable<ApiResponse> {
+        return this.httpClient.get<ApiResponse>(this.baseUrl + 'size')
     }
 }

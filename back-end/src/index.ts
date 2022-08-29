@@ -24,6 +24,7 @@ app.get('/', (request: Request, response: Response) => {
 app.get('/news/:id', NewsController.getNews)
 app.get('/newspage/:pageId/:newsPerPage', NewsController.getNewsPage)
 app.get('/newsall', NewsController.getAllNews)
+app.get('/newssize', NewsController.getNewsSize)
 app.post('/news', NewsController.createNews)
 app.delete('/news', NewsController.deleteNews)
 app.put('/news', NewsController.editNews)

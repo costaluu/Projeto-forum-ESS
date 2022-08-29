@@ -95,6 +95,28 @@ export function getAllNews(request: Request, response: Response): void {
     return
 }
 
+export function getNewsSize(request: Request, response: Response): void {
+    log.info('GetNewsSize request received')
+
+    const valid = validator([], request.body)
+
+    if (!valid) {
+        response.send(HTTP_BAD_REQUEST)
+
+        return
+    }
+
+    let db: NewsDB = new NewsDB()
+    let result: number = db.getSize()
+
+    let httpResponse: ApiResponse = HTTP_SUCCESS
+    httpResponse.result = result
+
+    response.send(httpResponse)
+
+    return
+}
+
 export function createNews(request: Request, response: Response): void {
     log.info('CreateNews request received')
 

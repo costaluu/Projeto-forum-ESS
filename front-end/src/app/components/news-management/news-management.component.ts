@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit } from '@angular/core'
 import { ApiResponse, News } from 'src/types'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NewsManagementService } from 'src/app/services/news-management.service'
-import { NzStatus } from 'ng-zorro-antd/core/types'
 import { imageFallBack } from 'src/util'
 
 @Component({
@@ -14,58 +13,60 @@ export class NewsManagementComponent implements OnInit {
     imageFall: string = imageFallBack
     newsList: News[] = []
     newsListFiltered: News[] = []
+    tableLoading: boolean = false
 
-    isModalVisible: boolean = false
-
-    creatingNewsInModal: Pick<News, 'title' | 'markdownText' | 'tags'> = {
-        title: '',
-        markdownText: '',
-        tags: [],
-    }
-
-    statusInputTitleModal: NzStatus = ''
-    statusInputContentModal: NzStatus = ''
-
-    tagsOptions: string[] = ['Rap', 'Nacional']
+    pageSizeOptions: number[] = [10, 20, 30, 40]
+    pageSize: number = 10
+    pageIndex: number = 1
+    totalNews: number = 1
 
     filterText: string = ''
 
     constructor(private message: NzMessageService, private newsManagementService: NewsManagementService) {
-        this.getAllNews()
+        this.getNewsPage()
     }
 
     ngOnInit(): void {}
 
-    validateModalInfo(): boolean {
-        this.statusInputContentModal = ''
-        this.statusInputTitleModal = ''
-
-        var result: boolean = true
-
-        if (this.creatingNewsInModal.markdownText == '') {
-            this.statusInputContentModal = 'error'
-            result = false
-        }
-        if (this.creatingNewsInModal.title == '') {
-            this.statusInputTitleModal = 'error'
-            result = false
-        }
-
-        return result
+    getNewsSize() {
+        this.newsManagementService.getNewsSize().subscribe((res: ApiResponse) => {
+            if (res.status == 200) {
+                this.totalNews = res.result as number
+            } else {
+                this.totalNews = 1
+            }
+        })
     }
 
-    validateEditInfo(index: number): boolean {
-        var result: boolean = true
+    updatePageIndex(event: number) {
+        this.pageIndex = event
 
-        if (this.newsList[index].markdownText == '') {
-            result = false
-        }
+        this.getNewsPage()
+    }
 
-        if (this.newsList[index].title == '') {
-            result = false
-        }
+    updatePageSize(event: number) {
+        this.pageSize = event
 
-        return result
+        this.getNewsPage()
+    }
+
+    getNewsPage() {
+        this.tableLoading = true
+
+        this.getNewsSize()
+
+        this.newsManagementService.getPage(this.pageIndex, this.pageSize).subscribe((res: ApiResponse) => {
+            if (res.status == 200 || res.status == 404) {
+                this.newsList = res.result as News[]
+
+                this.clearFilter()
+            } else {
+                this.newsList = []
+                this.newsListFiltered = []
+            }
+
+            this.tableLoading = false
+        })
     }
 
     findIndexFromFilteredList(id: string): number {
@@ -113,25 +114,10 @@ export class NewsManagementComponent implements OnInit {
             if (res.status == 200) {
                 this.newsList.splice(find, 1)
                 this.clearFilter()
+                this.totalNews -= 1
                 this.message.create('success', `News deleted successfully!`)
             } else {
                 this.message.create('error', `Failed to create the news!`)
-            }
-        })
-    }
-
-    getAllNews() {
-        this.newsManagementService.getAll().subscribe((res: ApiResponse) => {
-            if (res.status == 200 || res.status == 404) {
-                this.message.create('success', `News loaded!`)
-
-                this.newsList = res.result as News[]
-                this.newsListFiltered = res.result as News[]
-            } else {
-                this.message.create('error', `Failed to load news!`)
-
-                this.newsList = []
-                this.newsListFiltered = []
             }
         })
     }

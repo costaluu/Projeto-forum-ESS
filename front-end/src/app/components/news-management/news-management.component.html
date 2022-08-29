@@ -14,46 +14,72 @@
                 <button nz-button nzType="primary" nzSearch>Search</button>
             </ng-template>
         </div>
-        <nz-divider *nzSpaceItem></nz-divider>
         <div *nzSpaceItem>
-            <nz-list nzItemLayout="vertical">
-                <nz-list-item *ngFor="let news of newsListFiltered; index as i">
-                    <nz-list-item-extra>
-                        <img nz-image width="180px" height="130px" [nzSrc]="news.cover" [nzFallback]="imageFall" />
-                    </nz-list-item-extra>
-                    <nz-list-item-meta>
-                        <nz-list-item-meta-avatar
-                            [nzSrc]="'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'"
-                        ></nz-list-item-meta-avatar>
-                        <nz-list-item-meta-title> {{ news.title }} </nz-list-item-meta-title>
-                        <nz-list-item-meta-description> {{ news.edited ? 'Edited' : 'Created' }} at {{ news.date }} </nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                    <nz-collapse>
-                        <nz-collapse-panel nzHeader="News content" [nzExtra]="collapseTagsTemplate">
-                            <markdown ngPreserveWhitespaces> {{ news.markdownText }} </markdown>
-                        </nz-collapse-panel>
-                        <ng-template #collapseTagsTemplate>
+            <nz-table
+                #borderedTable
+                nzBordered
+                [nzFrontPagination]="false"
+                [nzTotal]="totalNews"
+                [nzData]="newsListFiltered"
+                [nzPageSize]="pageSize"
+                [nzPageIndex]="pageIndex"
+                [nzNoResult]="emptyDataTemplate"
+                [nzPageSizeOptions]="pageSizeOptions"
+                [nzShowSizeChanger]="true"
+                [nzLoading]="tableLoading"
+                (nzPageIndexChange)="updatePageIndex($event)"
+                (nzPageSizeChange)="updatePageSize($event)"
+            >
+                <ng-template #emptyDataTemplate>
+                    <nz-empty></nz-empty>
+                </ng-template>
+                <thead>
+                    <tr>
+                        <th nzEllipsis>Title</th>
+                        <th nzEllipsis>Date</th>
+                        <th nzEllipsis>Edit Status</th>
+                        <th nzEllipsis>Tags</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let news of newsListFiltered">
+                        <td nzEllipsis>
+                            <h5 nz-typography>{{ news.title }}</h5>
+                        </td>
+                        <td nzEllipsis>
+                            <span nz-typography nzType="secondary">{{ news.date }}</span>
+                        </td>
+                        <td nzEllipsis>
+                            <nz-tag [nzColor]="news.edited == false ? 'green' : 'blue'">
+                                {{ news.edited == false ? 'NOT EDITED' : 'EDITED' }}
+                            </nz-tag>
+                        </td>
+                        <td nzEllipsis>
+                            <div *ngIf="news.tags.length == 0; else tagsBlock">
+                                <nz-tag>No tags</nz-tag>
+                            </div>
+                            <ng-template #tagsBlock>
+                                <nz-space>
+                                    <nz-tag *ngFor="let tag of news.tags">{{ tag }}</nz-tag>
+                                </nz-space>
+                            </ng-template>
+                        </td>
+                        <td>
                             <nz-space>
-                                <nz-tag *ngFor="let tag of news.tags">{{ tag }}</nz-tag>
+                                <button *nzSpaceItem nz-button nzType="primary" [routerLink]="'edit/' + news.id">
+                                    <span nz-icon nzType="edit"></span>
+                                    Edit
+                                </button>
+                                <button *nzSpaceItem nz-button nzType="primary" nzDanger (click)="onDeleteNews(news.id)">
+                                    <i nz-icon nzType="delete"></i>
+                                    Delete
+                                </button>
                             </nz-space>
-                        </ng-template>
-                    </nz-collapse>
-                    <ul nz-list-item-actions>
-                        <nz-list-item-action>
-                            <button nz-button nzType="primary" [routerLink]="'edit/' + news.id">
-                                <span nz-icon nzType="edit"></span>
-                                Edit
-                            </button>
-                        </nz-list-item-action>
-                        <nz-list-item-action>
-                            <button nz-button nzType="primary" nzDanger (click)="onDeleteNews(news.id)">
-                                <i nz-icon nzType="delete"></i>
-                                Delete
-                            </button>
-                        </nz-list-item-action>
-                    </ul>
-                </nz-list-item>
-            </nz-list>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
         </div>
     </nz-space>
 </nz-card>

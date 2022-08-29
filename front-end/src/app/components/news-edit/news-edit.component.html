@@ -12,16 +12,21 @@
         <nz-divider></nz-divider>
         <div nz-row class="editable-text-news" [nzGutter]="24">
             <div nz-col nzSpan="24">
-                <h4 nz-typography>Markdown</h4>
-            </div>
-            <div nz-col nzSpan="24">
-                <textarea rows="5" nz-input [(ngModel)]="news.markdownText" nzAutosize [nzStatus]="statusInputContent"></textarea>
-            </div>
-            <div nz-col nzSpan="24">
-                <h4 nz-typography>Preview</h4>
-            </div>
-            <div nz-col nzSpan="24">
-                <markdown ngPreserveWhitespaces [data]="news.markdownText"></markdown>
+                <nz-tabset nzType="card" class="editable-text-news">
+                    <nz-tab [nzTitle]="'Markdown'">
+                        <textarea
+                            rows="10"
+                            nz-input
+                            [(ngModel)]="news.markdownText"
+                            nzAutosize
+                            [nzStatus]="statusInputContent"
+                            [placeholder]="'Markdown content'"
+                        ></textarea>
+                    </nz-tab>
+                    <nz-tab [nzTitle]="'Preview'">
+                        <markdown ngPreserveWhitespaces [data]="news.markdownText == '' ? 'Markdown content' : news.markdownText"></markdown>
+                    </nz-tab>
+                </nz-tabset>
             </div>
         </div>
         <nz-divider></nz-divider>
